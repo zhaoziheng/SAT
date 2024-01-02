@@ -1,0 +1,441 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!--
+  <script src="./resources/jsapi" type="text/javascript"></script>
+  <script type="text/javascript" async>google.load("jquery", "1.3.2");</script>
+ -->
+
+<style type="text/css">
+  @font-face {
+   font-family: 'Avenir Book';
+   src: url("./fonts/Avenir_Book.ttf"); /* File to be stored at your site */
+   }
+
+  body {
+    font-family: "Avenir Book", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight:300;
+    font-size:14px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+  }
+  h1 {
+    font-weight:300;
+  }
+  h2 {
+    font-weight:300;
+  }
+
+  p {
+    font-weight:300;
+    line-height: 1.4;
+  }
+
+  code {
+    font-size: 0.8rem;
+    margin: 0 0.2rem;
+    padding: 0.5rem 0.8rem;
+    white-space: nowrap;
+    background: #efefef;
+    border: 1px solid #d3d3d3;
+    color: #000000;
+    border-radius: 3px;
+  }
+
+  pre > code {
+    display: block;
+    white-space: pre;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+  }
+
+  pre.prettyprint > code {
+    border: none;
+  }
+
+
+  .container {
+        display: flex;
+        align-items: center;
+        justify-content: center
+  }
+  .image {
+        flex-basis: 40%
+  }
+  .text {
+        padding-left: 20px;
+        padding-right: 20px;
+  }
+
+  .disclaimerbox {
+    background-color: #eee;
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+    padding: 20px;
+  }
+
+  video.header-vid {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.header-img {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.rounded {
+    border: 0px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+
+  }
+
+  a:link,a:visited
+  {
+    color: #1367a7;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #208799;
+  }
+
+  td.dl-link {
+    height: 160px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+            15px 15px 0 0px #fff, /* The fourth layer */
+            15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+            20px 20px 0 0px #fff, /* The fifth layer */
+            20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+            25px 25px 0 0px #fff, /* The fifth layer */
+            25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+
+
+  .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+  }
+
+  .vert-cent {
+    position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  hr
+  {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+</style>
+
+	<title>One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts</title>
+</head>
+
+<body>
+	<br>
+	<center>
+	<span style="font-size:32px">One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts</span><br><br><br>
+	</center>
+
+        <table align="center" width="640px">
+            <tbody><tr>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px">Ziheng Zhao</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px">Yao Zhang</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px"><a href="https://chaoyi-wu.github.io/">Chaoyi Wu</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px"><a href="https://xiaoman-zhang.github.io/">Xiaoman Zhang</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+            </tr>
+
+        </tbody></table><br>
+
+        <table align="center" width="480px">
+            <tbody><tr>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px"><a href="https://mediabrain.sjtu.edu.cn/yazhang/">Ya Zhang</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px"><a href="https://mediabrain.sjtu.edu.cn/">Yanfeng Wang</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px"><a href="https://weidixie.github.io/">Weidi Xie</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+            </tr>
+
+        </tbody></table><br>
+
+	
+	      <table align="center" width="700px">
+            <tbody><tr>
+                    <td align="center" width="50px">
+              <center>
+                    <span style="font-size:16px"></span>
+                </center>
+                </td>
+                    <td align="center" width="300px">
+              <center>
+                    <span style="font-size:16px"><sup>1</sup>CMIC, Shanghai Jiao Tong University</span>
+                </center>
+                </td>
+                    <td align="center" width="300px">
+              <center>
+                    <span style="font-size:16px"><sup>2</sup>Shanghai AI Laboratory</span>
+                </center>
+                </td>
+        </tr></tbody></table>
+	
+	    <table align="center" width="700px">
+            <tbody><tr>
+              <td align="center" width="200px">
+                <center>
+                  <br>
+                  <span style="font-size:20px">Code
+                    <a href="https://github.com/zhaoziheng/SAT"> [GitHub]</a>
+                  </span>
+                </center>
+              </td>
+
+              <td align="center" width="200px">
+                <center>
+                  <br>
+                  <span style="font-size:20px">
+                    Paper  <a href="https://arxiv.org/abs/2312.17183"> [arXiv]</a>
+                  </span>
+                </center>
+              </td>
+
+              <td align="center" width="200px">
+                <center>
+                  <br>
+                  <span style="font-size:20px">
+                    Cite <a href="./cite.txt"> [BibTeX]</a>
+                  </span>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+	
+      <br><hr>
+      <center><h2> Abstract </h2> </center>
+      <p style="text-align:justify; text-justify:inter-ideograph;">
+      <left>
+	      In this study, we focus on building up a model that can <b>S</b>egment <b>A</b>nything in medical scenarios, driven by <b>T</b>ext prompts, termed as <b>SAT</b>. 
+        Our main contributions are three folds: 
+        (i) on data construction, we combine multiple knowledge sources to construct a multi-modal medical knowledge tree; 
+        Then we build up a large-scale segmentation dataset for training, 
+        by collecting over 11K 3D medical image scans from 31 segmentation datasets with careful standardization on both visual scans and label space;
+        (ii) on model training, we formulate a universal segmentation model, that can be prompted by inputting medical terminologies in text form. We present a knowledge-enhanced representation learning framework, and a series of strategies for effectively training on the combination of a large number of datasets;
+        (iii) on model evaluation, we train a <b>SAT-Nano</b> with only 107M parameters, to segment 31 different segmentation datasets with text prompt, 
+        resulting in 362 categories. We thoroughly evaluate the model from three aspects: averaged by body regions, averaged by classes, 
+        and average by datasets, demonstrating comparable performance to 36 specialist nnU-Nets, i.e., we train nnU-Net models on each dataset/subset, resulting in 36 nnU-Nets with around 1000M parameters for the 31 datasets. We will release the codes, and models of SAT-Nano. 
+        Moreover, we will offer <b>SAT-Ultra</b> in the near future, which is trained with model of larger size, on more diverse datasets.
+        </left></p>
+        <table align="center" width="800px">
+              <tbody><tr>
+                <td align="center" width="600px">
+                  <center>
+                    <img style="width:800px" src='./resources/highlevel.pdf'></img>
+                  </center>
+                </td>
+              </tr></tbody>
+        </table>
+        </left></p>
+        <table align="center" width="800px">
+            <tbody><tr>
+              <td align="center" width="600px">
+                <center>
+                  <img style="width:800px" src='./resources/wholebody_demonstration.pdf'></img>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+	
+      <br><hr>
+      <center> <h2> Datasets </h2> </center>
+      <p><b><h3>Domain Knowledge</h3></b></p>
+      <p style="text-align:justify; text-justify:inter-ideograph;"><left>
+	     As is shown in the following figure, we construct a knowledge tree based on multiple medical knowledge source, including <a href="https://www.imaios.com/en/e-anatomy/">e-Anatomy</a>, <a href="https://www.nlm.nih.gov/research/umls/index.html">UMLS</a> and abundant segmentation datasets. 
+       It encompassing thousands of anatomy concepts throughout the human body. 
+       They are linked via the relations and further extended with their definitions, containing their characteristics.
+       Additionally, some are further mapped to segmentations or grounding locations on the atlas images, demonstrating their visual features that may hardly be described purely by text.
+	    </left></p>
+        <table align="center" width="800px">
+            <tbody><tr>
+              <td align="center" width="600px">
+                <center>
+                  <img style="width:800px" src='./resources/knowledge_source.pdf'></img>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+
+      <p><b><h3>Segmentation Datasets</h3></b></p>
+      <p style="text-align:justify; text-justify:inter-ideograph;"><left>
+       To equip our universal segmentation model with the ability to handle segmentation tasks of different targets across various modalities and anatomical regions, 
+       we collect and integrate 31 diverse publicly available medical segmentation datasets, 
+       totaling 11,462 scans including both CT and MRI and 142,254 segmentation annotations, 
+       covering 362 anatomical structures and lesions spanning 8 different regions of the human body: Brain, Head and Neck, Upper Limb, Thorax, Abdomen, Plevis, and Lower Limb. 
+       The dataset collection is termed as SAT-DS, listed in the following table. 
+       More details are present in the paper.
+      </left></p>
+        <table align="center" width="800px">
+            <tbody><tr>
+              <td align="center" width="600px">
+                <center>
+                  <img style="width:700px" src='./resources/SAT_DS.png'></img>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+      <br>
+      <hr>
+
+      <center><h2>Method</h2></center>
+      <p style="text-align:justify; text-justify:inter-ideograph;"><left>
+       Towards building up our universal segmentation model by text prompt, i.e., SAT, we consider two main stages, namely, <b>multimodal knowledge injection</b> (a) and <b>universal segmentation training</b> (b). 
+       In the first stage, we pair the data in the constructed knowledge tree into text-text or text-atlas segmentation pairs, and use them for visual-language pre-training, injecting rich multimodal medical domain knowledge into the visual and text encoders;
+       In the second stage, we build a universal segmentation model prompted by text. Here, the pretrained text encoder generates neural embedding for any anatomical target terminology as the text prompt for segmentation, providing helpful guidance from the knowledge injected.
+      </left></p>
+        <table align="center" width="800px">
+            <tbody><tr>
+              <td align="center" width="800px">
+                <center>
+                  <img style="width:800px" src='./resources/framework_wcy.pdf'></img>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+      <br>
+      <hr>
+
+
+
+      <center><h2>Result</h2></center>
+      We evaluate SAT-nano on all the 31 segmentation datasets in the collection. 
+      As there is no existing benchmark for evaluating the universal segmentation model, we randomly split each dataset in the collection into 80% for training and 20% for testing. 
+      We take nnU-Net as a strong baseline for comparison, and train one nnU-Net model on each of the datasets, resulting in 36 nnU-Net models customized on each dataset.
+
+      <p><b>R1: Region-Wise Evaluation</b> </p> 
+      Comparison with 36 nnU-Net models on each region, and model size.</p>
+
+      <table align="center" width="800px">
+            <tbody><tr>
+              <td align="center" width="600px">
+                <center>
+                  <img style="width:800px" src='./resources/results.pdf'></img>
+                </center>
+              </td>
+            </tr></tbody>
+      </table>
+
+      <p><b>R2: Class-Wise Evaluation</b> </p> 
+      Comparison with 36 nnU-Net models on each class.</p>
+
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/label_table_1.png'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/label_table_2.png'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+
+      <p><b>R3: Dataset-Wise Evaluation</b> </p> 
+      Comparison with 36 nnU-Net models on each dataset.</p>
+
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/dataset_table.png'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+
+      
+      <center> <h2> Acknowledgements </h2> </center>
+      <p> 
+	      Based on a template by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a href="http://richzhang.github.io/">Richard Zhang</a>.
+      </p>
+      <br>
+
+
+<br>
+</body>
+</html>

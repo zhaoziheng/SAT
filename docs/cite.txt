@@ -1,0 +1,5 @@
+@arxiv{zhao2023model,
+  title={One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompt}, 
+  author={Ziheng Zhao and Yao Zhang and Chaoyi Wu and Xiaoman Zhang and Ya Zhang and Yanfeng Wang and Weidi Xie},
+  year={2023},journal={arXiv preprint arXiv:2312.17183},
+}
