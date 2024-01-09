@@ -18,7 +18,7 @@ The inference code and model checkpoint of SAT-Nano have been released. The SAT-
     --nproc_per_node=1 \
     --master_port 1234 \
     inference.py \
-    --data_jsonl 'data/inference_demo/WORD/WORD.jsonl' \
+    --data_jsonl 'data/inference_demo/demo.jsonl' \
     --checkpoint 'path to SAT-Nano checkpoint' \
     --text_encoder_checkpoint 'path to Text encoder checkpoint' \
     ```
