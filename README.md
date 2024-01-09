@@ -2,6 +2,7 @@
 This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts"
 
 [ArXiv](https://arxiv.org/abs/2312.17183)
+
 [Website](https://zhaoziheng.github.io/SAT/)
 
 ## Latest News:
@@ -22,7 +23,7 @@ The inference code and model checkpoint of SAT-Nano have been released. The SAT-
     --text_encoder_checkpoint 'path to Text encoder checkpoint' \
     ```
     Note that you may modify `--max_queries` and `--batchsize` to accelerate the inference, based on the computation resource you have.
-- S5. Check the path where you store the images. For each image, a folder with the same name will be created. Inside each folder, you will find the predictions for each label (named after the label), the aggregate results for all labels (prediction.nii.gz), and the input image (image.nii.gz). You can visualize them using the [ITK-SNAP](http://www.itksnap.org/pmwiki/pmwiki.php)."
+- S5. Check the path where you store the images. For each image, a folder with the same name will be created. Inside each folder, you will find the predictions for each label (named after the label), the aggregate results for all labels (prediction.nii.gz), and the input image (image.nii.gz). You can visualize them using the [ITK-SNAP](http://www.itksnap.org/pmwiki/pmwiki.php).
 
 ## Requirements
 The implementation of U-Net relies on a customized version of [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures), to install it:
