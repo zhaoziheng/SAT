@@ -1,6 +1,8 @@
 # SAT
 This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts"
 
+<img src="docs/resources/highlevel.png" width = "2030" height = "638" alt="" align=center />
+
 [ArXiv](https://arxiv.org/abs/2312.17183)
 
 [Website](https://zhaoziheng.github.io/SAT/)
