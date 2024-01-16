@@ -12,7 +12,7 @@ def get_parameter_number(model):
     return {'Total': total_num, 'Trainable': trainable_num}
 
 def load_text_encoder(args, device, gpu_id):
-    model = Text_Tower('../medical-knowledge-pretraining/src/others/pubmed_bert', 768)
+    model = Text_Tower(args.tokenizer_path, 768)
     
     model = model.to(device)
     model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)        
