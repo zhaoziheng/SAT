@@ -13,7 +13,7 @@ The inference code and model checkpoint of SAT-Nano have been released. The SAT-
 ## Inference Guidance:
 - S1. Build the environment following the requirements.
 - S2. Download checkpoint of SAT and Text Encodewr from [baiduyun](https://pan.baidu.com/s/1zvR3icGTfThT_sWS6iwykA?pwd=jgwh) or [google drive](https://drive.google.com/drive/folders/1VJFXGf-bdYuDwKI5xDKtlEi-uQT3GTO3?usp=share_link).
-- S3. Prepare the data to inference in a jsonl file. A demo can be found in `data/inference_demo/demo.jsonl`. Make sure the image path, label name and modality are correctly filled in. Download links of the dataset involved in training SAT-Nano can be found in the supplementary of the paper.
+- S3. Prepare the data to inference in a jsonl file. A demo can be found in `data/inference_demo/demo.jsonl`. Make sure the image path, label name and modality are correctly filled in. For the label name and modality, please refer to Table 8 of the [paper](https://arxiv.org/abs/2312.17183) for reference. Download links of the dataset involved in training SAT-Nano can be found in the supplementary of the paper.
 - S4. Start the inference with the following command:
     ```
     torchrun \
