@@ -45,6 +45,41 @@ einops==0.6.1
 positional_encodings==6.0.1
 ```
 
+## Datasets
+| Dataset | Download Link |
+|---|---|
+| AbdomenCT1K | https://github.com/JunMa11/AbdomenCT-1K |
+| ACDC | https://humanheart-project.creatis.insa-lyon.fr/database/ |
+| Brain Atlas | http://brain-development.org/ |
+| BrainPTM | https://brainptm-2021.grand-challenge.org/ |
+| BraTS2021 | http://braintumorsegmentation.org/ |
+| CHAOS | https://chaos.grand-challenge.org/ |
+| CHAOS MR | https://chaos.grand-challenge.org/ |
+| Couinaud | https://github.com/GLCUnet/dataset |
+| COVID-19 CT Seg | https://github.com/JunMa11/COVID-19-CT-Seg-Benchmark |
+| FLARE22 | https://flare22.grand-challenge.org/ |
+| HAN Seg | https://zenodo.org/record/ |
+| ISLES2022 | http://www.isles-challenge.org/ |
+| KITS21 | https://kits-challenge.org/kits21/ |
+| LUNA16 | https://luna16.grand-challenge.org/ |
+| MRSpineSeg | https://www.cg.informatik.uni-siegen.de/en/spine-segmentation-and-analysis |
+| MSD Cardiac | http://medicaldecathlon.com/ |
+| MSD Colon | http://medicaldecathlon.com/ |
+| MSD HepaticVessel | http://medicaldecathlon.com/ |
+| MSD Hippocampus | http://medicaldecathlon.com/ |
+| MSD Liver | http://medicaldecathlon.com/ |
+| MSD Lung | http://medicaldecathlon.com/ |
+| MSD Pancreas | http://medicaldecathlon.com/ |
+| MSD Prostate | http://medicaldecathlon.com/ |
+| MSD Spleen | http://medicaldecathlon.com/ |
+| NSCLC | https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=68551327 |
+| PROMISE12 | https://promise12.grand-challenge.org/Details/ |
+| SKI10 | https://ambellan.de/sharing/QjrntLwah |
+| SLIVER07 | https://sliver07.grand-challenge.org/ |
+| TotalSegmentator | https://zenodo.org/record/6802614 |
+| WMH | https://wmh.isi.uu.nl/ |
+| WORD | https://github.com/HiLab-git/WORD |
+
 ## TODO
 - [x] Release the inference code of SAT-Nano
 - [x] Release the model of SAT-Nano
