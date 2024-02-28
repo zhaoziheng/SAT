@@ -8,7 +8,7 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 [Website](https://zhaoziheng.github.io/SAT/)
 
 ## Latest News:
-The inference code and model checkpoint of SAT-Nano have been released. The SAT-Ultra is coming soon.
+Due to potential copyright issues in our knowledge data, we have temporarily withdrawn our paper from ArXiv, and are currently preparing a revised version of the model and paper.
 
 ## Inference Guidance:
 - S1. Build the environment following the requirements.
