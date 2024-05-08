@@ -12,6 +12,8 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 We also renew SAT-Nano, and release some variants of SAT-Nano, based on different visual backbones ([U-Mamba](https://github.com/bowang-lab/U-Mamba/tree/main) and [SwinUNETR](https://arxiv.org/abs/2201.01266)) and text encoders ([MedCPT](https://huggingface.co/ncbi/MedCPT-Query-Encoder) and [BERT-Base](https://huggingface.co/google-bert/bert-base-uncased)). 
 For more details about this update, refer to our new [paper](https://arxiv.org/abs/2312.17183).
 
+⚠️ NOTE: We made lots of changes in this update, checkpoint/code from previous version are not compatible with the newly released code/checkpoint. However, the data format is consistent with before, so no need to re-prepare your data.
+
 ## Inference Guidance:
 - S1. Build the environment following `requirements.txt`.
 
