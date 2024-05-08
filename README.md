@@ -79,7 +79,12 @@ positional_encodings==6.0.1
 
 You also need to install `mamba_ssm` if you want the U-Mamba variant of SAT-Nano
 
-# Citation
+## TODO
+[] Release the data preprocess code to build SAT-DS.
+[] Release the train and evaluation guidance.
+[] Release SAT-Ultra.
+
+## Citation
 If you use this code for your research or project, please cite:
 ```
 @arxiv{zhao2023model,
