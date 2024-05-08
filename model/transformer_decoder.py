@@ -5,8 +5,7 @@ Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 """
 
 import copy
-from typing import Optional, List
-import pickle as cp
+from typing import Optional
 
 import torch
 import torch.nn.functional as F
@@ -140,6 +139,7 @@ class TransformerDecoderLayer(nn.Module):
 
 def _get_clones(module, N):
     return nn.ModuleList([copy.deepcopy(module) for i in range(N)])
+
 
 
 def _get_activation_fn(activation):

@@ -142,7 +142,7 @@ class ResidualEncoder(nn.Module):
         if self.return_skips:
             return ret
         else:
-            return ret[-1]
+            return [ret[-1]]
 
     def compute_conv_feature_map_size(self, input_size):
         if self.stem is not None:

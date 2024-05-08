@@ -21,7 +21,6 @@ class PlainConvUNet(nn.Module):
                  kernel_sizes: Union[int, List[int], Tuple[int, ...]],
                  strides: Union[int, List[int], Tuple[int, ...]],
                  n_conv_per_stage: Union[int, List[int], Tuple[int, ...]],
-                 num_classes: int,
                  n_conv_per_stage_decoder: Union[int, Tuple[int, ...], List[int]],
                  conv_bias: bool = False,
                  norm_op: Union[None, Type[nn.Module]] = None,
@@ -52,13 +51,14 @@ class PlainConvUNet(nn.Module):
                                         n_conv_per_stage, conv_bias, norm_op, norm_op_kwargs, dropout_op,
                                         dropout_op_kwargs, nonlin, nonlin_kwargs, return_skips=True,
                                         nonlin_first=nonlin_first)
-        self.decoder = UNetDecoder(self.encoder, num_classes, n_conv_per_stage_decoder, deep_supervision,
+                                       
+        self.decoder = UNetDecoder(self.encoder, n_conv_per_stage_decoder, deep_supervision,
                                    nonlin_first=nonlin_first)
 
     def forward(self, x):
         skips = self.encoder(x) # [2, 32, 256, 256, 96] ... [2, 768, 8, 8, 3]
         outs = self.decoder(skips)  # [2, 32, 256, 256, 96] ... [2, 512, 16, 16, 6]
-        return skips[-1], outs[0]   # latent_embeddings, perpixel_embeddings
+        return skips, outs   # latent_embeddings(a list of multiscale features), perpixel_embeddings(a list of decoder outputs)
 
     def compute_conv_feature_map_size(self, input_size):
         assert len(input_size) == convert_conv_op_to_dim(self.encoder.conv_op), "just give the image size without color/feature channels or " \
@@ -131,7 +131,6 @@ class ResidualEncoderUNet(nn.Module):
                  kernel_sizes: Union[int, List[int], Tuple[int, ...]],
                  strides: Union[int, List[int], Tuple[int, ...]],
                  n_blocks_per_stage: Union[int, List[int], Tuple[int, ...]],
-                 num_classes: int,
                  n_conv_per_stage_decoder: Union[int, Tuple[int, ...], List[int]],
                  conv_bias: bool = False,
                  norm_op: Union[None, Type[nn.Module]] = None,
@@ -161,11 +160,13 @@ class ResidualEncoderUNet(nn.Module):
                                        n_blocks_per_stage, conv_bias, norm_op, norm_op_kwargs, dropout_op,
                                        dropout_op_kwargs, nonlin, nonlin_kwargs, block, bottleneck_channels,
                                        return_skips=True, disable_default_stem=False, stem_channels=stem_channels)
-        self.decoder = UNetDecoder(self.encoder, num_classes, n_conv_per_stage_decoder, deep_supervision)
+        
+        self.decoder = UNetDecoder(self.encoder, n_conv_per_stage_decoder, deep_supervision)
 
     def forward(self, x):
-        skips = self.encoder(x)
-        return self.decoder(skips)
+        skips = self.encoder(x) # [2, 32, 256, 256, 96] ... [2, 768, 8, 8, 3]
+        outs = self.decoder(skips)  # [2, 32, 256, 256, 96] ... [2, 512, 16, 16, 6]
+        return skips, outs   # latent_embeddings(a list of multiscale features), perpixel_embeddings(a list of decoder outputs)
 
     def compute_conv_feature_map_size(self, input_size):
         assert len(input_size) == convert_conv_op_to_dim(self.encoder.conv_op), "just give the image size without color/feature channels or " \

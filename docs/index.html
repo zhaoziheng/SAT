@@ -283,73 +283,67 @@
       <center><h2> Abstract </h2> </center>
       <p style="text-align:justify; text-justify:inter-ideograph;">
       <left>
-	      In this study, we focus on building up a model that can <b>S</b>egment <b>A</b>nything in medical scenarios, driven by <b>T</b>ext prompts, termed as <b>SAT</b>. 
+	      In this study, we focus on building up a model that aims to <b>S</b>egment <b>A</b>nything in medical scenarios, driven by <b>T</b>ext prompts, termed as <b>SAT</b>. 
         Our main contributions are three folds: 
-        (i) on data construction, we combine multiple knowledge sources to construct a multi-modal medical knowledge tree; 
-        Then we build up a large-scale segmentation dataset for training, 
-        by collecting over 11K 3D medical image scans from 31 segmentation datasets with careful standardization on both visual scans and label space;
-        (ii) on model training, we formulate a universal segmentation model, that can be prompted by inputting medical terminologies in text form. We present a knowledge-enhanced representation learning framework, and a series of strategies for effectively training on the combination of a large number of datasets;
-        (iii) on model evaluation, we train a <b>SAT-Nano</b> with only 107M parameters, to segment 31 different segmentation datasets with text prompt, 
-        resulting in 362 categories. We thoroughly evaluate the model from three aspects: averaged by body regions, averaged by classes, 
-        and average by datasets, demonstrating comparable performance to 36 specialist nnU-Nets, i.e., we train nnU-Net models on each dataset/subset, resulting in 36 nnU-Nets with around 1000M parameters for the 31 datasets. We will release the codes, and models of SAT-Nano. 
-        Moreover, we will offer <b>SAT-Ultra</b> in the near future, which is trained with model of larger size, on more diverse datasets.
+        (i) for dataset construction, we combine multiple knowledge sources to construct the first multi-modal knowledge tree on human anatomy, 
+        including 6502 anatomical terminologies; Then we build up the largest and most comprehensive segmentation dataset for training, 
+        by collecting over 22K 3D medical image scans from 72 segmentation datasets with careful standardization on both image scans and label space; 
+        (ii) for architecture design, we formulate a universal segmentation model, 
+        that can be prompted by inputting medical terminologies in text form. 
+        We present knowledge-enhanced representation learning on the combination of a large number of datasets; 
+        (iii) for model evaluation, we train a <b>SAT-Pro</b> with only <b>447M parameters</b>, 
+        to segment <b>72</b> different segmentation datasets with text prompt, resulting in <b>497</b> classes. 
+        We have thoroughly evaluated the model from three aspects: averaged by body regions, averaged by classes, and average by datasets, 
+        demonstrating comparable performance to <b>72 specialist nnU-Nets</b>, i.e., we train nnU-Net models on each dataset/subset, 
+        resulting in 72 nnU-Nets with around <b>2.2B parameters</b> for the 72 datasets. 
+        We will release all the codes, and models in this work.
         </left></p>
         <table align="center" width="800px">
               <tbody><tr>
                 <td align="center" width="600px">
                   <center>
-                    <img style="width:800px" src='./resources/highlevel.png'></img>
+                    <img style="width:800px" src='./resources/new_teaser.pdf'></img>
                   </center>
                 </td>
               </tr></tbody>
         </table>
-        </left></p>
-        <table align="center" width="800px">
-            <tbody><tr>
-              <td align="center" width="600px">
-                <center>
-                  <img style="width:800px" src='./resources/wholebody_demonstration.png'></img>
-                </center>
-              </td>
-            </tr></tbody>
-      </table>
 	
       <br><hr>
       <center> <h2> Datasets </h2> </center>
       <p><b><h3>Domain Knowledge</h3></b></p>
       <p style="text-align:justify; text-justify:inter-ideograph;"><left>
-	     As is shown in the following figure, we construct a knowledge tree based on multiple medical knowledge source, including <a href="https://www.imaios.com/en/e-anatomy/">e-Anatomy</a>, <a href="https://www.nlm.nih.gov/research/umls/index.html">UMLS</a> and abundant segmentation datasets. 
-       It encompassing thousands of anatomy concepts throughout the human body. 
-       They are linked via the relations and further extended with their definitions, containing their characteristics.
-       Additionally, some are further mapped to segmentations or grounding locations on the atlas images, demonstrating their visual features that may hardly be described purely by text.
+	     We construct a knowledge tree based on multiple medical knowledge source. 
+       It encompassing thousands of anatomy concepts and definitions throughout the human body. 
+       They are linked via the relations and additionally, some are further mapped to segmentations on the atlas images, 
+       demonstrating their visual features that may hardly be described purely by text.
 	    </left></p>
-        <table align="center" width="800px">
-            <tbody><tr>
-              <td align="center" width="600px">
-                <center>
-                  <img style="width:800px" src='./resources/knowledge_source.png'></img>
-                </center>
-              </td>
-            </tr></tbody>
+      <table align="center" width="800px">
+          <tbody><tr>
+            <td align="center" width="600px">
+              <center>
+                <img style="width:800px" src='./resources/knowledge_source.pdf'></img>
+              </center>
+            </td>
+          </tr></tbody>
       </table>
 
       <p><b><h3>Segmentation Datasets</h3></b></p>
       <p style="text-align:justify; text-justify:inter-ideograph;"><left>
        To equip our universal segmentation model with the ability to handle segmentation tasks of different targets across various modalities and anatomical regions, 
-       we collect and integrate 31 diverse publicly available medical segmentation datasets, 
-       totaling 11,462 scans including both CT and MRI and 142,254 segmentation annotations, 
-       covering 362 anatomical structures and lesions spanning 8 different regions of the human body: Brain, Head and Neck, Upper Limb, Thorax, Abdomen, Plevis, and Lower Limb. 
-       The dataset collection is termed as SAT-DS, listed in the following table. 
-       More details are present in the paper.
+       we collect and integrate 72 diverse publicly available medical segmentation datasets, 
+       totaling 22,186 scans including both CT and MRI and 302,033 segmentation annotations, 
+       covering 497 anatomical structures and lesions spanning 8 different regions of the human body: Brain, Head and Neck, Upper Limb, Thorax, Abdomen, Plevis, and Lower Limb. 
+       The dataset collection is termed as <b>SAT-DS</b>. 
+       Detailed composition of the dataset are present in the paper.
       </left></p>
-        <table align="center" width="800px">
-            <tbody><tr>
-              <td align="center" width="600px">
-                <center>
-                  <img style="width:700px" src='./resources/SAT_DS.png'></img>
-                </center>
-              </td>
-            </tr></tbody>
+      <table align="center" width="800px">
+          <tbody><tr>
+            <td align="center" width="600px">
+              <center>
+                <img style="width:800px" src='./resources/wholebody_demonstration.pdf'></img>
+              </center>
+            </td>
+          </tr></tbody>
       </table>
       <br>
       <hr>
@@ -357,72 +351,98 @@
       <center><h2>Method</h2></center>
       <p style="text-align:justify; text-justify:inter-ideograph;"><left>
        Towards building up our universal segmentation model by text prompt, i.e., SAT, we consider two main stages, namely, <b>multimodal knowledge injection</b> (a) and <b>universal segmentation training</b> (b). 
-       In the first stage, we pair the data in the constructed knowledge tree into text-text or text-atlas segmentation pairs, and use them for visual-language pre-training, injecting rich multimodal medical domain knowledge into the visual and text encoders;
-       In the second stage, we build a universal segmentation model prompted by text. Here, the pretrained text encoder generates neural embedding for any anatomical target terminology as the text prompt for segmentation, providing helpful guidance from the knowledge injected.
+       In the first stage, we pair the data in the constructed knowledge tree into text-text or text-atlas segmentation pairs, 
+       and use them for visual-language pre-training, 
+       injecting rich multimodal medical domain knowledge into the visual and text encoders;
+       In the second stage, we build a universal segmentation model prompted by text. 
+       Here, the pretrained text encoder is applied to generate embedding for any anatomical target terminology as the text prompt for segmentation.
       </left></p>
-        <table align="center" width="800px">
-            <tbody><tr>
-              <td align="center" width="800px">
-                <center>
-                  <img style="width:800px" src='./resources/framework_wcy.png'></img>
-                </center>
-              </td>
-            </tr></tbody>
+      <table align="center" width="800px">
+          <tbody><tr>
+            <td align="center" width="800px">
+              <center>
+                <img style="width:800px" src='./resources/framework_wcy.pdf'></img>
+              </center>
+            </td>
+          </tr></tbody>
       </table>
       <br>
       <hr>
 
-
-
       <center><h2>Result</h2></center>
-      We evaluate SAT-nano on all the 31 segmentation datasets in the collection. 
-      As there is no existing benchmark for evaluating the universal segmentation model, we randomly split each dataset in the collection into 80% for training and 20% for testing. 
-      We take nnU-Net as a strong baseline for comparison, and train one nnU-Net model on each of the datasets, resulting in 36 nnU-Net models customized on each dataset.
 
-      <p><b>R1: Region-Wise Evaluation</b> </p> 
-      Comparison with 36 nnU-Net models on each region, and model size.</p>
+      <p><b>A universal model is worth 72 specialist models</b></p> 
+      We evaluate SAT-Nano and SAT-Pro on all the 72 segmentation datasets in the collection. 
+      As there is no appropriate benchmark for evaluating the universal segmentation model, 
+      we randomly split each dataset in the collection into 80% for training and 20% for testing.
+      We take nnU-Net as a strong baseline for comparison, and train specialist nnU-Net model on each of the datasets, 
+      resulting in 72 nnU-Net models with optimized configuration on each dataset.
+      And the results are compared region-wise, class-wise and dataset-wise respectively.
+      Here, we present the comparison with 72 nnU-Net models on each region, and model size. 
+      SAT-Pro shows comparable performance to the combination of 72 nnU-Net models, with only <b>1/5</b> model size.
+      For class-wise and dataset-wise results, 
+      please refer to the supplementary materials in the paper.
 
       <table align="center" width="800px">
             <tbody><tr>
               <td align="center" width="600px">
                 <center>
-                  <img style="width:800px" src='./resources/results.png'></img>
+                  <img style="width:800px" src='./resources/radar_v2.pdf'></img>
                 </center>
               </td>
             </tr></tbody>
       </table>
-
-      <p><b>R2: Class-Wise Evaluation</b> </p> 
-      Comparison with 36 nnU-Net models on each class.</p>
-
       <table align="center" width="800px">
         <tbody><tr>
           <td align="center" width="600px">
             <center>
-              <img style="width:700px" src='./resources/label_table_1.png'></img>
+              <img style="width:800px" src='./resources/region_table.png'></img>
             </center>
           </td>
         </tr></tbody>
       </table>
 
+      <p><b>Domain knowledge can boost segmentation performance</b> </p> 
+      We configure and train three SAT-Nano variants, with different text encoders: 
+      The text encoder pre-trained on our multimodal medical knowledge graph; 
+      MedCPT, the state-of-the-art text encoder for various medical language tasks; 
+      And BERT-Base, a prevalent text encoder in natural language processing but not specifically finetuned on medical corpus.
+      With respect to the severe long-tail distribution of SAT-DS, 
+      we demonstrate the knowledge injection we proposed can significantly improve the segmentation performance, 
+      especially on the tail classes.
+      For detailed results, please refer to Section 2.2 in our paper.
+      </p>
       <table align="center" width="800px">
         <tbody><tr>
           <td align="center" width="600px">
             <center>
-              <img style="width:700px" src='./resources/label_table_2.png'></img>
+              <img style="width:700px" src='./resources/long_tail.pdf'></img>
             </center>
           </td>
         </tr></tbody>
       </table>
 
-      <p><b>R3: Dataset-Wise Evaluation</b> </p> 
-      Comparison with 36 nnU-Net models on each dataset.</p>
-
+      <p><b>Zero-shot transfer to real clinic data</b></p> 
+      On several in-house clinical images with manual reports,
+      we utilize GPT-4 to directly extract the anatomical targets of interests from reports 
+      and prompt SAT-Pro to segment them on the image. 
+      This demonstrate the potentail of SAT as a powerful agent for LLMs, 
+      and its powerful generalization capability to real clinic data, despite the diversity of images and segmentation targets.
+      </p>
       <table align="center" width="800px">
         <tbody><tr>
           <td align="center" width="600px">
             <center>
-              <img style="width:700px" src='./resources/dataset_table.png'></img>
+              <img style="width:700px" src='./resources/zero-shot-six1.pdf'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/zero-shot-six2.pdf'></img>
             </center>
           </td>
         </tr></tbody>

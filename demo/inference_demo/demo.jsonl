@@ -1,0 +1,1 @@
+{"image": "/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/demo/inference_demo/Case_00176_0000.nii.gz", "label": ["liver", "kidney", "spleen", "pancreas"], "modality": "ct", "dataset":"AbdomenCT1K"}

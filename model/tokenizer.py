@@ -5,13 +5,13 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 class MyTokenizer():
-    def __init__(self, tokenizer, max_length=256):
+    def __init__(self, tokenizer='../others/pubmed_bert', max_length=256):
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.max_length = max_length
-    
+        
     def tokenize(self, texts:[str, List[str]]) -> torch.LongTensor:
         """
-        tokenize a lits of strings or a single string, pad/trunctate to max length input
+        tokenize a lits of strings or a single string, pad/trunctate to max length input of the text tower
 
         Args:
             texts (str, List[str]]): a string 
