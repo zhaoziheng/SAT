@@ -17,13 +17,13 @@ For more details about this update, refer to our new [paper](https://arxiv.org/a
 ## Inference Guidance:
 - S1. Build the environment following `requirements.txt`.
 
-- S2. Download checkpoint of SAT and Text Encoder from [huggingface](https://huggingface.co/zzh99/SAT) or [baiduyun](https://pan.baidu.com/s/1WJdsCAHYgfOxXwU1RyfUcg?pwd=kjjy) (passcode:kjjy).
+- S2. Download checkpoint of SAT and Text Encoder from [huggingface](https://huggingface.co/zzh99/SAT).
   
 - S3. Prepare the data in a jsonl file. Check the demo in `data/inference_demo/demo.jsonl`.
     1. `image`(path to image), `labe`(name of segmentation targets), `dataset`(which dataset the sample belongs to) and `modality`(ct, mri or pet) are needed for each sample to segment. Modalities and classes that SAT supports can be found in in Table 12 of the paper.
 
-    2. `orientation_code`(orientation) is 'RAS' by default, which suits most images in axial plane. For images in sagittal plane (for instance, spine examination), set this to 'ASR'.
-Our data process code will normalize the input image in terms of orientation, intensity, spacing and so on. Two successfully processed images can be found in `demo\processed_data`, make sure the normalization is done correctly to guarantee the performance of SAT.
+    2. `orientation_code`(orientation) is `RAS` by default, which suits most images in axial plane. For images in sagittal plane (for instance, spine examination), set this to `ASR`.
+The input image should be with shape `H,W,D` Our data process code will normalize the input image in terms of orientation, intensity, spacing and so on. Two successfully processed images can be found in `demo\processed_data`, make sure the normalization is done correctly to guarantee the performance of SAT.
 
 - S4. Start the inference with SAT-Pro 🕶:
     ```
