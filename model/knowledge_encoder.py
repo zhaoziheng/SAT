@@ -3,7 +3,7 @@ import torch.nn as nn
 from .text_tower import Text_Tower
 
 class Knowledge_Encoder(nn.Module):
-    def __init__(self, biolord_checkpoint='/mnt/petrelfs/share_data/wuchaoyi/SAM/Knowledge_Data/BioLORD2023C'):
+    def __init__(self, biolord_checkpoint='FremyCompany/BioLORD-2023-C'):
         super().__init__()
         # LP
         self.text_tower = Text_Tower(biolord_checkpoint)

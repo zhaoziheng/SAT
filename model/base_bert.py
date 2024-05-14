@@ -3,7 +3,7 @@ import torch.nn as nn
 from transformers import BertModel, AutoTokenizer
 
 class BaseBERT(nn.Module):
-    def __init__(self, basebert_checkpoint='/mnt/petrelfs/share_data/wuchaoyi/SAM/Knowledge_Data/basebert'):
+    def __init__(self, basebert_checkpoint='bert-base-uncased'):
         super().__init__()
         self.tokenizer = AutoTokenizer.from_pretrained(basebert_checkpoint)
         self.model = BertModel.from_pretrained(basebert_checkpoint)

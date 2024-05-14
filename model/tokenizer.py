@@ -5,7 +5,7 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 class MyTokenizer():
-    def __init__(self, tokenizer='../others/pubmed_bert', max_length=256):
+    def __init__(self, tokenizer, max_length=256):
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.max_length = max_length
         

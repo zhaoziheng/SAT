@@ -3,7 +3,7 @@ import torch.nn as nn
 from transformers import AutoModel, AutoTokenizer
 
 class MedCPT(nn.Module):
-    def __init__(self, cpt_checkpoint='/mnt/petrelfs/share_data/wuchaoyi/SAM/Knowledge_Data/MedCPT_Query_Encoder'):
+    def __init__(self, cpt_checkpoint='ncbi/MedCPT-Query-Encoder'):
         super().__init__()
         self.tokenizer = AutoTokenizer.from_pretrained(cpt_checkpoint)
         self.model = AutoModel.from_pretrained(cpt_checkpoint)
