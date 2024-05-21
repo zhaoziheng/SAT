@@ -126,7 +126,7 @@ class Inference_Dataset(Dataset):
             split_idx = []
             split_label = []
             query_num = len(label_list)
-            n_crop = query_num // self.max_queries + 1
+            n_crop = (query_num // self.max_queries + 1) if (query_num % self.max_queries != 0) else (query_num // self.max_queries)
             for n in range(n_crop):
                 n_s = n*self.max_queries
                 n_f = min((n+1)*self.max_queries, query_num)
