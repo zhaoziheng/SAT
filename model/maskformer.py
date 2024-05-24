@@ -323,6 +323,8 @@ class Maskformer(nn.Module):
         
         # Infer / Evaluate Forward ------------------------------------------------------------
         if isinstance(queries, List):
+            del image_input
+            torch.cuda.empty_cache()
             logits = self.infer_forward(queries, image_embedding, pos, per_pixel_embedding_ls)
             
         # Train Forward -----------------------------------------------------------------------

@@ -88,6 +88,8 @@ def inference(model, text_encoder, device, testset, testloader, nib_dir):
                 queries_ls = []
                 for labels_ls, n1n2 in zip(split_labels, split_n1n2):  # convert list of texts to list of embeds
                     queries_ls.append(text_encoder(labels_ls, modality))
+                    
+                torch.cuda.empty_cache()
                       
                 # for each batch of patches, query with all labels
                 for patches, y1y2_x1x2_z1z2_ls in zip(batched_patches, batched_y1y2_x1x2_z1z2):   # [b, c, h, w, d]
