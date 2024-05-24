@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch
 
 from transformers import AutoModel, AutoTokenizer
 
@@ -16,7 +17,7 @@ class MedCPT(nn.Module):
                 padding=True, 
                 return_tensors='pt', 
                 max_length=64,
-            )
+            ).to(device=torch.cuda.current_device())
         
         text_feature = self.model(**encoded).last_hidden_state[:, 0, :]
         modality_feature = self.modality_embed(modality)
