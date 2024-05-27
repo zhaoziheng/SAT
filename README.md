@@ -32,7 +32,7 @@ The input image should be with shape `H,W,D` Our data process code will normaliz
     --master_port 1234 \
     inference.py \
     --rcd_dir 'demo/inference_demo/results' \
-    --data_jsonl 'demo/inference_demo/demo.jsonl' \
+    --datasets_jsonl 'demo/inference_demo/demo.jsonl' \
     --vision_backbone 'UNET-L' \
     --checkpoint 'path to SAT-Pro checkpoint' \    
     --text_encoder 'ours' \
