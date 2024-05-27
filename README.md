@@ -14,7 +14,7 @@ For more details about this update, refer to our new [paper](https://arxiv.org/a
 
 ⚠️ NOTE: We made lots of changes in this update, checkpoint/code from previous version are not compatible with the newly released code/checkpoint. However, the data format is consistent with before, so no need to re-prepare your data.
 
-## Inference Guidance:
+## Inference Guidance (Command Line):
 - S1. Build the environment following `requirements.txt`.
 
 - S2. Download checkpoint of SAT and Text Encoder from [huggingface](https://huggingface.co/zzh99/SAT).
@@ -40,8 +40,14 @@ The input image should be with shape `H,W,D` Our data process code will normaliz
     --max_queries 256 \
     --batchsize_3d 2
     ```
-    NOTE: `--batchsize_3d` is the batch size of input image patches, and need to be adjusted based on the gpu memory;
-    `--max_queries` is recommended to set larger than the classes in the inference dataset, unless your gpu memory is very limited; 
+    ⚠️ NOTE: `--batchsize_3d` is the batch size of input image patches, and need to be adjusted based on the gpu memory (check the table below);
+    `--max_queries` is recommended to set larger than the classes in the inference dataset, unless your gpu memory is very limited;
+    | Model | batchsize_3d | GPU Memory |
+    |---|---|---|
+    | SAT-Pro | 1 | ~ 34GB |
+    | SAT-Pro | 2 | ~ 62GB |
+    | SAT-Nano | 1 | ~ 24GB |
+    | SAT-Nano | 2 | ~ 36GB |
 
 - S5. Check `--rcd_dir` for outputs. Results are organized by datasets. For each case, the input image, aggregated segmentation result and a folder containing segmentations of each class will be found. All outputs are stored as nifiti files. You can visualize them using the [ITK-SNAP](http://www.itksnap.org/pmwiki/pmwiki.php).
   
@@ -80,8 +86,10 @@ positional_encodings==6.0.1
 You also need to install `mamba_ssm` if you want the U-Mamba variant of SAT-Nano
 
 ## TODO
+- [ ] Inference demo in jupyter notebook.
+- [ ] Inference demo on website.
 - [ ] Release the data preprocess code to build SAT-DS.
-- [ ] Release the train and evaluation guidance.
+- [ ] Release the train guidance.
 - [ ] Release SAT-Ultra.
 
 ## Citation
