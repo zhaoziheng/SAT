@@ -86,7 +86,6 @@ positional_encodings==6.0.1
 You also need to install `mamba_ssm` if you want the U-Mamba variant of SAT-Nano
 
 ## TODO
-- [ ] Inference demo in jupyter notebook.
 - [ ] Inference demo on website.
 - [ ] Release the data preprocess code to build SAT-DS.
 - [ ] Release the train guidance.
