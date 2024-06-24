@@ -16,6 +16,26 @@ For more details about this update, refer to our new [paper](https://arxiv.org/a
 
 ⚠️ NOTE: We made lots of changes in this update, checkpoint/code from previous version are not compatible with the newly released code/checkpoint. However, the data format is consistent with before, so no need to re-prepare your data.
 
+## Requirements
+The implementation of U-Net relies on a customized version of [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures), to install it:
+```
+cd model
+pip install -e dynamic-network-architectures-main
+```
+
+Some other key requirements:
+```
+torch>=1.10.0
+numpy==1.21.5
+monai==1.1.0 
+transformers==4.21.3
+nibabel==4.0.2
+einops==0.6.1
+positional_encodings==6.0.1
+```
+
+You also need to install `mamba_ssm` if you want the U-Mamba variant of SAT-Nano
+
 ## Inference Guidance (Command Line):
 - S1. Build the environment following `requirements.txt`.
 
@@ -67,31 +87,21 @@ The input image should be with shape `H,W,D` Our data process code will normaliz
 
   SwinUNETR-CPT: set `--vision_backbone 'SwinUNETR'` and `--text_encoder 'medcpt'`;
 
-## Requirements
-The implementation of U-Net relies on a customized version of [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures), to install it:
-```
-cd model
-pip install -e dynamic-network-architectures-main
-```
+## Train Guidance:
+Some preparation before start the training:
+  1. you need to build your training data following this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main), a jsonl containing all the training samples is required.
+  2. you need to fetch the text encoder checkpoint from https://huggingface.co/zzh99/SAT to generate prompts.
+Our recommendation for training SAT-Nano is 8 or more A100-80G, for SAT-Pro is 16 or more A100-80G. Please use the slurm script in `sh/` to start the training process. Take SAT-Pro for example:
+  ```
+  sbatch sh/train_sat_pro.sh
+  ```
 
-Some other key requirements:
-```
-torch>=1.10.0
-numpy==1.21.5
-monai==1.1.0 
-transformers==4.21.3
-nibabel==4.0.2
-einops==0.6.1
-positional_encodings==6.0.1
-```
 
-You also need to install `mamba_ssm` if you want the U-Mamba variant of SAT-Nano
 
 ## TODO
 - [ ] Inference demo on website.
 - [x] Release the data preprocess code to build SAT-DS.
-- [ ] Release the train guidance.
-- [ ] Release SAT-Ultra.
+- [x] Release the train guidance.
 
 ## Citation
 If you use this code for your research or project, please cite:
