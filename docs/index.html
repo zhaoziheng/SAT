@@ -283,20 +283,13 @@
       <center><h2> Abstract </h2> </center>
       <p style="text-align:justify; text-justify:inter-ideograph;">
       <left>
-	      In this study, we focus on building up a model that aims to <b>S</b>egment <b>A</b>nything in medical scenarios, driven by <b>T</b>ext prompts, termed as <b>SAT</b>. 
-        Our main contributions are three folds: 
-        (i) for dataset construction, we combine multiple knowledge sources to construct the first multi-modal knowledge tree on human anatomy, 
-        including 6502 anatomical terminologies; Then we build up the largest and most comprehensive segmentation dataset for training, 
-        by collecting over 22K 3D medical image scans from 72 segmentation datasets with careful standardization on both image scans and label space; 
-        (ii) for architecture design, we formulate a universal segmentation model, 
-        that can be prompted by inputting medical terminologies in text form. 
-        We present knowledge-enhanced representation learning on the combination of a large number of datasets; 
-        (iii) for model evaluation, we train a <b>SAT-Pro</b> with only <b>447M parameters</b>, 
-        to segment <b>72</b> different segmentation datasets with text prompt, resulting in <b>497</b> classes. 
-        We have thoroughly evaluated the model from three aspects: averaged by body regions, averaged by classes, and average by datasets, 
-        demonstrating comparable performance to <b>72 specialist nnU-Nets</b>, i.e., we train nnU-Net models on each dataset/subset, 
-        resulting in 72 nnU-Nets with around <b>2.2B parameters</b> for the 72 datasets. 
-        We will release all the codes, and models in this work.
+	      In this study, we aim to build up a model that can Segment Anything in radiology scans, driven by Text prompts, termed as SAT. Our main contributions are three folds: 
+        (i) for dataset construction, we construct the first multi-modal knowledge tree on human anatomy, including 6502 anatomical terminologies; Then we build up the largest and most comprehensive segmentation dataset for training, by collecting over 22K 3D medical image scans from 72 segmentation datasets, across 497 classes, with careful standardization on both image scans and label space; 
+        (ii) for architecture design, we propose to inject medical knowledge into a text encoder via contrastive learning, and then formulate a universal segmentation model, that can be prompted by feeding in medical terminologies in text form; 
+        (iii) As a result, we have trained SAT-Nano (110M parameters) and SAT-Pro (447M parameters), demonstrating comparable performance to 72 specialist nnU-Nets trained on each dataset/subsets. 
+        We validate SAT as a foundational segmentation model, with better generalization ability on external (unseen) datasets, and can be further improved on specific tasks after fine-tuning adaptation. 
+        Comparing with interactive segmentation model, for example, MedSAM, segmentation model prompted by text enables superior performance, scalability and robustness. 
+        As a use case, we demonstrate that SAT can act as a powerful out-of-the-box agent for large language models, enabling visual grounding in clinical procedures such as report generation.
         </left></p>
         <table align="center" width="800px">
               <tbody><tr>
@@ -369,34 +362,88 @@
       <br>
       <hr>
 
-      <center><h2>Result</h2></center>
+      <center><h2>Results</h2></center>
 
-      <p><b>A universal model is worth 72 specialist models</b></p> 
-      We evaluate SAT-Nano and SAT-Pro on all the 72 segmentation datasets in the collection. 
+      <p><b>A Universal Model is Worth 72 Specialist Models</b></p> 
+      In the internal validation, we evaluate SAT-Nano and SAT-Pro on all the 72 segmentation datasets in the collection. 
       As there is no appropriate benchmark for evaluating the universal segmentation model, 
       we randomly split each dataset in the collection into 80% for training and 20% for testing.
       We take nnU-Net as a strong baseline for comparison, and train specialist nnU-Net model on each of the datasets, 
       resulting in 72 nnU-Net models with optimized configuration on each dataset.
-      And the results are compared region-wise, class-wise and dataset-wise respectively.
       Here, we present the comparison with 72 nnU-Net models on each region, and model size. 
-      SAT-Pro shows comparable performance to the combination of 72 nnU-Net models, with only <b>1/5</b> model size.
-      For class-wise and dataset-wise results, 
-      please refer to the supplementary materials in the paper.
-
+      In general, SAT-Pro shows comparable performance to the combination of 72 nnU-Net models, with only <b>1/5</b> model size.
       <table align="center" width="800px">
             <tbody><tr>
               <td align="center" width="600px">
                 <center>
-                  <img style="width:800px" src='./resources/radar_v2.pdf'></img>
+                  <img style="width:800px" src='./resources/radar_v3.pdf'></img>
                 </center>
               </td>
             </tr></tbody>
       </table>
+
+      <p><b>SAT as a Strong Pre-trained Segmentation Model</b></p> 
+      Built on the unprecedented data collection, SAT can be used as a strong pre-trained model, and adapted towards specific downstream dataset, 
+      by further finetuning on the training split of certain dataset. 
+      As shown in the following table, we report the results of SAT-Pro-FT. 
+      When comparing to the original SAT-Pro, it shows significant improvement on all the regions and lesion classes,
+      and ultimately outperforms nnU-Nets.
       <table align="center" width="800px">
         <tbody><tr>
           <td align="center" width="600px">
             <center>
               <img style="width:800px" src='./resources/region_table.png'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+
+      <p><b>SAT with Superior Generalization Ability</b></p> 
+      In the external validation, we use a subset collection of SAT-DS as training data (composed of 49 datasets), and take 10 held-out datasets for zero-shot evaluation. 
+      Although SAT-Pro is generally superior over SAT-Nano in internal evaluation, to save computational cost, we only train and evaluate SAT-Nano in this setting.
+      While to systematically evaluate nnU-Nets, for each held-out dataset, we traverse all the 49 datasets and corresponding models, and evaluate them on all the classes shared between the two datasets.
+      As shown in the following table, SAT-Nano outperforms nnU-Nets on 9 out of 10 datasets on DSC score (+2.21), and excels consistently on all datasets on NSD score (+6.73).
+      This suggest the superior generalization ability of SAT.
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:800px" src='./resources/zeroshot_table.png'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+
+      <p><b>Text As Prompt for Segmentation</b></p>
+      We compare our proposed SAT with MedSAM, an out-of-the-box interactive segmentation model finetuned from SAM. 
+      We carefully choose 32 out of 72 datasets for internal evaluation, which are also involved in training MedSAM.
+      We report three results for MedSAM: 
+      simulate box prompts based on the ground truth segmentation, with minimum rectangle covering the ground truth (denoted as Tight), i.e., the most accurate prompts; 
+      randomly shift each box corner up to 8% of the image resolution (denoted as Loose), i.e., allow errors to some extent; 
+      directly use the tight box prompts as prediction (denoted as Oracle Box), i.e., the input baseline of MedSAM.
+      The results are demonstrated in the following table. 
+      SAT-Pro consistently outperforms MedSAM on all regions in terms of both DSC (+7.08) and NSD (+10.8). While SAT-Pro underperforms MedSAM on lesions, due to the small size of lesions, and the box prompts to MedSAM have
+      lready provided very strong prior, as indicated by the results of inputting oracle box, which even shows better performance than MedSAM output on DSC score.
+      </p>
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/medsam_table.pdf'></img>
+            </center>
+          </td>
+        </tr></tbody>
+      </table>
+      We further present qualitative results from two representative examples to illustrate the performance
+      gap between SAT-Pro with MedSAM.
+      The upper row shows the segmentation of myocardium, where the box prompt is ambiguous and MedSAM wrongly segment the left heart ventricle surrounded by the myocardium.
+      The lower row shows the segmentation of colon cancer, where the MedSAM prediction is no better than the oracle box.
+      </p>
+      <table align="center" width="800px">
+        <tbody><tr>
+          <td align="center" width="600px">
+            <center>
+              <img style="width:700px" src='./resources/MedSAM_visualization.pdf'></img>
             </center>
           </td>
         </tr></tbody>
