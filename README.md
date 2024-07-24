@@ -5,10 +5,12 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 
 [Website](https://zhaoziheng.github.io/SAT/)
 
-[Model](https://huggingface.co/zzh99/SAT)
+[Model(huggingface)](https://huggingface.co/zzh99/SAT)
+
+[Model(dropbox)](https://www.dropbox.com/scl/fo/922fefjab8fp9j5czrqxo/AGU0eCBC-SLrO8BnsIzrQIg?rlkey=gddj22sfcpu5rr9vlzj3a2jmq&st=uzim2ow3&dl=0)
 
 ## Latest News:
-🎉 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main).
+🎉 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. We also offer shortcut download links for 42/72 datasets, which are preprocessed and packaged by us for your convenience, ready for immediate use upon download and extraction. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main) for details.
 
 📢 We train a new version of SAT with larger model size (**SAT-Pro**) and more datasets (**72**), and it supports **497** classes now! 
 We also renew SAT-Nano, and release some variants of SAT-Nano, based on different visual backbones ([U-Mamba](https://github.com/bowang-lab/U-Mamba/tree/main) and [SwinUNETR](https://arxiv.org/abs/2201.01266)) and text encoders ([MedCPT](https://huggingface.co/ncbi/MedCPT-Query-Encoder) and [BERT-Base](https://huggingface.co/google-bert/bert-base-uncased)). 
