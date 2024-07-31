@@ -9,6 +9,8 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 
 [Model(dropbox)](https://www.dropbox.com/scl/fo/922fefjab8fp9j5czrqxo/AGU0eCBC-SLrO8BnsIzrQIg?rlkey=gddj22sfcpu5rr9vlzj3a2jmq&st=uzim2ow3&dl=0)
 
+[Data](https://github.com/zhaoziheng/SAT-DS/tree/main)
+
 ## Latest News:
 🎉 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. We also offer shortcut download links for 42/72 datasets, which are preprocessed and packaged by us for your convenience, ready for immediate use upon download and extraction. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main) for details.
 
