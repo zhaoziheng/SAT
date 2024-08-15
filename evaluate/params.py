@@ -116,7 +116,7 @@ def parse_args():
     parser.add_argument(
         "--text_encoder_partial_load",
         type=str2bool,
-        default=False,
+        default=True,
         help="Allow to load partial paramters from checkpoint",
     )
     parser.add_argument(
