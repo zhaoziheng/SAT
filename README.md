@@ -3,6 +3,10 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 
 It's a knowledge-enhanced universal segmentation model built upon an unprecedented data collection (72 public 3D medical segmentation datasets), which can segment 497 classes from 3 different modalities (MR, CT, PET) and 8 human body regions, prompted by text (anatomical terminology).
 
+![Example Figure](docs/resources/new_teaser.png)
+
+![Example Figure](docs/resources/radar_v3.png)
+
 [ArXiv](https://arxiv.org/abs/2312.17183)
 
 [Website](https://zhaoziheng.github.io/SAT/)
