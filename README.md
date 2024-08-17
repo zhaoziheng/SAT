@@ -1,5 +1,7 @@
 # SAT
-This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts" 🚀
+This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts" 🚀 
+
+It's a knowledge-enhanced universal segmentation model built upon an unprecedented data collection (72 public 3D medical segmentation datasets), which can segment 497 classes from 3 different modalities (MR, CT, PET) and 8 human body regions, prompted by text (anatomical terminology).
 
 [ArXiv](https://arxiv.org/abs/2312.17183)
 
@@ -12,9 +14,11 @@ This is the official repository for "One Model to Rule them All: Towards Univers
 [Data](https://github.com/zhaoziheng/SAT-DS/tree/main)
 
 ## Latest News:
-🎉 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. We also offer shortcut download links for 42/72 datasets, which are preprocessed and packaged by us for your convenience, ready for immediate use upon download and extraction. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main) for details.
+- 2024.08 📢 Based on SAT and large language models, we build a comprehensive, large-scale and region-guided 3D chest CT interpretation dataset. It contains organ-level segmentation for 196 categories, and multi-granularity reports, where each sentence is grounded to the corresponding segmentation. Check it on [huggingface](https://huggingface.co/datasets/RadGenome/RadGenome-ChestCT/tree/main).
 
-📢 We train a new version of SAT with larger model size (**SAT-Pro**) and more datasets (**72**), and it supports **497** classes now! 
+- 2024.06 📢 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. We also offer shortcut download links for 42/72 datasets, which are preprocessed and packaged by us for your convenience, ready for immediate use upon download and extraction. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main) for details.
+
+- 2024.05 📢 We train a new version of SAT with larger model size (**SAT-Pro**) and more datasets (**72**), and it supports **497** classes now! 
 We also renew SAT-Nano, and release some variants of SAT-Nano, based on different visual backbones ([U-Mamba](https://github.com/bowang-lab/U-Mamba/tree/main) and [SwinUNETR](https://arxiv.org/abs/2201.01266)) and text encoders ([MedCPT](https://huggingface.co/ncbi/MedCPT-Query-Encoder) and [BERT-Base](https://huggingface.co/google-bert/bert-base-uncased)). 
 For more details about this update, refer to our new [paper](https://arxiv.org/abs/2312.17183).
 
