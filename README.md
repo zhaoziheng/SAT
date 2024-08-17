@@ -5,6 +5,8 @@ It's a knowledge-enhanced universal segmentation model built upon an unprecedent
 
 ![Example Figure](docs/resources/new_teaser.png)
 
+It can be powerful and more efficient than training and deploying a series of specialist models.
+
 ![Example Figure](docs/resources/radar_v3.png)
 
 [ArXiv](https://arxiv.org/abs/2312.17183)
