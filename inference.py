@@ -35,7 +35,7 @@ def set_seed(config):
 def main(args):
     # set gpu
     if args.gpu:
-        os.environ['CUDA_VISIBLE_DEVICES'] = args.pin_memory
+        os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
         
     torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
     device=torch.device("cuda", int(os.environ["LOCAL_RANK"]))
