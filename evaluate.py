@@ -67,7 +67,10 @@ def main(args):
                     evaluated_samples.add(f'{line[0]}_{line[2]}')
                     
     # dataset and loader
-    testset = Evaluate_Dataset_OnlineCrop(args.datasets_jsonl, args.max_queries, args.batchsize_3d, args.crop_size, evaluated_samples)
+    if args.online_crop:
+        testset = Evaluate_Dataset_OnlineCrop(args.datasets_jsonl, args.max_queries, args.batchsize_3d, args.crop_size, evaluated_samples)
+    else:
+        testset = Evaluate_Dataset(args.datasets_jsonl, args.max_queries, args.batchsize_3d, args.crop_size, evaluated_samples)
     sampler = DistributedSampler(testset)
     testloader = DataLoader(testset, sampler=sampler, batch_size=1, pin_memory=args.pin_memory, num_workers=args.num_workers, collate_fn=collate_fn, shuffle=False)
     sampler.set_epoch(0)
@@ -106,9 +109,7 @@ def main(args):
              save_interval=args.save_interval,
              dice_score=args.dice,
              nsd_score=args.nsd,
-             visualization=args.visualization,
-             region_split_json=args.region_split_json,
-             label_statistic_json=args.label_statistic_json)
+             visualization=args.visualization)
 
 if __name__ == '__main__':
     # get configs

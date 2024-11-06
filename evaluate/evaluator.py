@@ -46,9 +46,7 @@ def evaluate(model,
              csv_path, 
              resume,
              save_interval,
-             visualization,
-             region_split_json,
-             label_statistic_json):
+             visualization):
     
     # if to store pred、gt、img (as nii.gz
     if visualization:
@@ -376,13 +374,16 @@ def evaluate(model,
                         name = name[len(name)-31:]
                     df.to_excel(writer, sheet_name=name, index=True)    
                     
-            avg_dice_over_merged_labels, avg_nsd_over_merged_labels = merge(region_split_json, label_statistic_json, xlsx_path, xlsx_path)  
+            # avg_dice_over_merged_labels, avg_nsd_over_merged_labels = merge(region_split_json, label_statistic_json, xlsx_path, xlsx_path)  
             
             os.remove(csv_path.replace('.csv', '.pkl'))
             
         else:
-            avg_dice_over_merged_labels = avg_nsd_over_merged_labels = 0
             
-        return avg_dice_over_merged_labels, avg_nsd_over_merged_labels
+            pass
+        
+            # avg_dice_over_merged_labels = avg_nsd_over_merged_labels = 0
+            
+        return # avg_dice_over_merged_labels, avg_nsd_over_merged_labels
                     
             

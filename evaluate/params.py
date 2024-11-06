@@ -64,16 +64,6 @@ def parse_args():
         type=str2bool,
         default=True,
     )
-    parser.add_argument(
-        "--region_split_json",
-        type=str,
-        default='/mnt/petrelfs/share_data/wuchaoyi/SAM/processed_files_v4/mod_lab(72).json',
-    )
-    parser.add_argument(
-        "--label_statistic_json",
-        type=str,
-        default='/mnt/petrelfs/share_data/wuchaoyi/SAM/processed_files_v4/mod_lab_accum_statis(72).json',
-    )
     
     # Med SAM Dataset
     
@@ -84,6 +74,12 @@ def parse_args():
     
     # Sampler and Loader
     
+    parser.add_argument(
+        "--online_crop",
+        type=str2bool,
+        default='False',
+        help='load pre-cropped image patches directly, or crop online',
+    )
     parser.add_argument(
         "--crop_size",
         type=int,
@@ -133,7 +129,7 @@ def parse_args():
     parser.add_argument(
         "--vision_backbone",
         type=str,
-        help='UNETs UMamba or SwinUNETR'
+        help='UNET UNET-L UMamba or SwinUNETR'
     )
     parser.add_argument(
         "--patch_size",
