@@ -105,12 +105,8 @@ Our recommendation for training SAT-Nano is 8 or more A100-80G, for SAT-Pro is 1
   sbatch sh/train_sat_pro.sh
   ```
 
-
-
-## TODO
-- [ ] Inference demo on website.
-- [x] Release the data preprocess code to build SAT-DS.
-- [x] Release the train guidance.
+## Baselines
+We provide the detailed configurations of all the specialist models (nnU-Nets, U-Mambas, SwinUNETR) we have trained and evaluated [here](https://github.com/zhaoziheng/SAT-DS/blob/main/data/specialist_model_config).
 
 ## Citation
 If you use this code for your research or project, please cite:
