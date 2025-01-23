@@ -12,7 +12,7 @@ It's a knowledge-enhanced universal segmentation model built upon an unprecedent
 
 It can be powerful and more efficient than training and deploying a series of specialist models. Find more on our [website](https://zhaoziheng.github.io/SAT/) or [paper](https://arxiv.org/abs/2312.17183).
 
-![Example Figure](docs/resources/Compare_Specialist_1st_Revision.png)
+![Example Figure](docs/resources/radar_v3.png)
 
 ## Latest News:
 - 2024.08 📢 Based on SAT and large language models, we build a comprehensive, large-scale and region-guided 3D chest CT interpretation dataset. It contains organ-level segmentation for 196 categories, and multi-granularity reports, where each sentence is grounded to the corresponding segmentation. Check it on [huggingface](https://huggingface.co/datasets/RadGenome/RadGenome-ChestCT/tree/main).
