@@ -12,7 +12,7 @@ It's a knowledge-enhanced universal segmentation model built upon an unprecedent
 
 It can be powerful and more efficient than training and deploying a series of specialist models. Find more on our [website](https://zhaoziheng.github.io/SAT/) or [paper](https://arxiv.org/abs/2312.17183).
 
-![Example Figure](docs/resources/radar_v3.png)
+![Example Figure](docs/resources/Compare_Specialist_1st_Revision.png)
 
 ## Latest News:
 - 2024.08 📢 Based on SAT and large language models, we build a comprehensive, large-scale and region-guided 3D chest CT interpretation dataset. It contains organ-level segmentation for 196 categories, and multi-granularity reports, where each sentence is grounded to the corresponding segmentation. Check it on [huggingface](https://huggingface.co/datasets/RadGenome/RadGenome-ChestCT/tree/main).
@@ -22,7 +22,6 @@ It can be powerful and more efficient than training and deploying a series of sp
 - 2024.05 📢 We train a new version of SAT with larger model size (**SAT-Pro**) and more datasets (**72**), and it supports **497** classes now! 
 We also renew SAT-Nano, and release some variants of SAT-Nano, based on different visual backbones ([U-Mamba](https://github.com/bowang-lab/U-Mamba/tree/main) and [SwinUNETR](https://arxiv.org/abs/2201.01266)) and text encoders ([MedCPT](https://huggingface.co/ncbi/MedCPT-Query-Encoder) and [BERT-Base](https://huggingface.co/google-bert/bert-base-uncased)). 
 For more details about this update, refer to our new [paper](https://arxiv.org/abs/2312.17183).
-
 ⚠️ NOTE: We made lots of changes in this update, checkpoint/code from previous version are not compatible with the newly released code/checkpoint. However, the data format is consistent with before, so no need to re-prepare your data.
 
 ## Requirements
