@@ -1,0 +1,3011 @@
+{
+    "MR_LeftAtrium": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_ProstateADC": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_ISLES_DWI": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_WMH_T1": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_BraTS-T1n": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_AMOS": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_BraTS-T2w": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_QIN-PROSTATE-Lesion": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_HNTS-MRG_HeadTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_T1c_crossMoDA_Tumor_Cochlea": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_CHAOS-T1": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_WMH_FLAIR": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_ProstateT2": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_CHAOS-T2": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_Heart_ACDC": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_BraTS-T1c": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_CervicalCancer": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_ISLES_ADC": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_BraTS-T2f": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "MR_TotalSeg": {
+        "load_and_save": "False",
+        "sampling_weight": 2.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "Microscopy_urocell_Mitochondria": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "Microscopy_SELMA3D_neural_activity_marker": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "nucmm": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "Microscopy_urocell_Endolysosomes": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "Microscopy_SELMA3D_ADplaques": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "cremi": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "Microscopy_SELMA3D_vessel": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "US_Low-limb-Leg": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "US_Cardiac": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "autoPET": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_Lungs": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_ColonTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_SegRap_HeadNeckTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_COVID19-Infection": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_TotalSeg_muscles": {
+        "load_and_save": "False",
+        "sampling_weight": 2.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_TotalSeg-vertebrae": {
+        "load_and_save": "False",
+        "sampling_weight": 2.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_PancreasTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_HaN-Seg": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_Aorta": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_AirwayTree": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_LymphNode": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_TotalSeg_cardiac": {
+        "load_and_save": "False",
+        "sampling_weight": 2.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_LungLesion": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_WholeBodyTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_AdrenalTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_LiverTumor": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_Abdomen1K": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_TotalSeg_organs": {
+        "load_and_save": "False",
+        "sampling_weight": 2.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_AMOS": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_AbdomenAtlas": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    },
+    "CT_ThoracicOrgans-TCIA-LCTSC": {
+        "load_and_save": "False",
+        "sampling_weight": 1.0,
+        "pos_label_first_prob": 1.0,
+        "foreground_crop_prob": 0.5,
+        "label_based_crop_prob": 0.5,
+        "uncenter_prob": 0.0,
+        "neg_label_ratio_threshold": 0.2,
+        "augmentation": {
+            "RandZoom": {
+                "min_zoom": 0.7,
+                "max_zoom": 1.4,
+                "prob": 0.2
+            },
+            "RandGaussianNoise": {
+                "prob": 0.1,
+                "mean": 0.0,
+                "std": 0.1
+            },
+            "RandGaussianSharpen": {
+                "prob": 0.2
+            },
+            "RandScaleIntensity": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandScaleIntensityFixedMean": {
+                "factors": [
+                    -0.25,
+                    0.25
+                ],
+                "prob": 0.15
+            },
+            "RandSimulateLowResolution": {
+                "prob": 0.25
+            },
+            "RandAdjustContrastInvert": {
+                "retain_stats": "True",
+                "invert_image": "True",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.1
+            },
+            "RandAdjustContrast": {
+                "retain_stats": "True",
+                "invert_image": "False",
+                "gamma": [
+                    0.7,
+                    1.5
+                ],
+                "prob": 0.3
+            }
+        }
+    }
+}

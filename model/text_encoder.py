@@ -120,6 +120,7 @@ class Text_Encoder(nn.Module):
                 'mri':1,
                 'us':2,
                 'pet':3,
+                'microscopy':4
             }
         modality_code = torch.tensor([modality_code_dict[mod] for mod in modality])   # bn
             

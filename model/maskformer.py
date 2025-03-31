@@ -11,7 +11,6 @@ from dynamic_network_architectures.initialization.weight_init import InitWeights
 
 from .transformer_decoder import TransformerDecoder,TransformerDecoderLayer
 from .SwinUNETR import SwinUNETR
-from .umamba_mid import UMambaMid
 
 class Maskformer(nn.Module):
     def __init__(self, vision_backbone='UNET', image_size=[288, 288, 96], patch_size=[32, 32, 32], deep_supervision=False):
@@ -96,23 +95,6 @@ class Maskformer(nn.Module):
                                    deep_supervision=deep_supervision,
                                    nonlin_first=False
                                    ),
-            'UMamba' : UMambaMid(
-                        input_channels=3,
-                        n_stages=6,
-                        features_per_stage=(64, 64, 128, 256, 512, 768),
-                        conv_op=nn.Conv3d,
-                        kernel_sizes=3,
-                        strides=(1, 2, 2, 2, 2, 2),
-                        n_conv_per_stage=(1, 1, 1, 1, 1, 1),
-                        n_conv_per_stage_decoder=(1, 1, 1, 1, 1),
-                        conv_bias=True,
-                        norm_op=nn.InstanceNorm3d,
-                        norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
-                        dropout_op=None,
-                        dropout_op_kwargs=None,
-                        nonlin=nn.LeakyReLU, 
-                        nonlin_kwargs=None,
-                ),
         }[vision_backbone]
         
         self.backbone.apply(InitWeights_He(1e-2))
@@ -155,12 +137,6 @@ class Maskformer(nn.Module):
                         nn.Linear(3072, query_dim),
                         nn.GELU()
                     ),
-            'UMamba' : nn.Sequential(
-                        nn.Linear(1792, 768),  # 64, 64, 128, 256, 512, 768 --> 768
-                        nn.GELU(),
-                        nn.Linear(768, query_dim),
-                        nn.GELU()
-                    ),
         }[vision_backbone]
         
         # positional encoding
@@ -186,15 +162,13 @@ class Maskformer(nn.Module):
                 'SwinUNETR':[48, 96, 192],
                 'UNET':[64, 128, 256],
                 'UNET-L':[128, 256, 512],
-                'UNET-H':[256, 512, 1024],
-                'UMamba':[64, 128, 256]
+                'UNET-H':[256, 512, 1024]
                 }[vision_backbone]
             mid_dim = {
                 'SwinUNETR':[256, 384, 512],
                 'UNET':[256, 384, 512],
                 'UNET-L':[384, 512, 512],
-                'UNET-H':[768, 1024, 1024],
-                'UMamba':[256, 384, 512]
+                'UNET-H':[768, 1024, 1024]
                 }[vision_backbone]
             self.mid_mask_embed_proj = []
             for hidden_dim, per_pixel_dim in zip(mid_dim, feature_per_stage):
@@ -213,8 +187,7 @@ class Maskformer(nn.Module):
             'SwinUNETR' : [256, 48],
             'UNET' : [256, 64],
             'UNET-L' : [384, 128],
-            'UNET-H' : [768, 256],
-            'UMamba':[256, 64]
+            'UNET-H' : [768, 256]
         }[vision_backbone]
         self.mask_embed_proj = nn.Sequential(
             nn.Linear(query_dim, mid_dim),

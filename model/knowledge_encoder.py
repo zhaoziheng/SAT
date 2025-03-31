@@ -12,7 +12,7 @@ class Knowledge_Encoder(nn.Module):
             nn.GELU(),
             nn.Linear(768, 768)
         )
-        self.modality_embed = nn.Embedding(4, 768)
+        self.modality_embed = nn.Embedding(5, 768)
     
     def forward(self, text, modality):
         text_feature = self.text_tower(text)

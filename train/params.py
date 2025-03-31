@@ -157,6 +157,17 @@ def parse_args():
         type=str,
         help='path to dataset config parameters'
     )
+    parser.add_argument(
+        "--text_prompts_json",
+        type=str,
+        help='This is needed for CVPR25 challenge, where multiple prompts (synonyms) are required.'
+    )
+    parser.add_argument(
+        "--nnUNet_aug",
+        type=str2bool,
+        help='Use monai for aug (SAT) or batch_generator for aug (nnUNet)',
+        default='True'
+    )
     
     # Sampler and Loader
     
