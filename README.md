@@ -31,7 +31,7 @@ TBD
 
 ## Train Guidance:
 - **Knowledge enhancement**. You can either use our pretrained text encoder in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Pretrain) or re-do the pretraining with guidance in this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master).
-- **Segmentation**. The training script is in `sh/cvpr2025.sh.
+- **Segmentation**. The training script is in `sh/cvpr2025.sh`.
 
 ## Citation
 If you use this code for your research or project, please cite:
