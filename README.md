@@ -97,9 +97,10 @@ The input image should be with shape `H,W,D` Our data process code will normaliz
 
 ## Train Guidance:
 Some preparation before start the training:
-  1. you need to build your training data following this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main), specifically, from step 1 to step 5. A jsonl containing all the training samples is required.
-  2. you need to fetch the text encoder checkpoint from https://huggingface.co/zzh99/SAT to generate prompts.
-Our recommendation for training SAT-Nano is 8 or more A100-80G, for SAT-Pro is 16 or more A100-80G. Please use the slurm script in `sh/` to start the training process. Take SAT-Pro for example:
+  1. You need to build your training data following this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main), specifically, from step 1 to step 5. A jsonl containing all the training samples is required.
+  2. You need to fetch the pre-trained text encoder checkpoint from https://huggingface.co/zzh99/SAT to generate prompts. If you want to re-do the knowledge enhancement pre-training from scratch, you may refer to this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master).
+
+Our recommendation for training SAT-Nano is 8 or more A100-80G, for SAT-Pro is 16 or more A100-80G. You can of course modify the `crop_size` or other hyperparameters to reduce computational consumption and requirement. Use the slurm script in `sh/` for a reference to start the training process. Take SAT-Pro for example:
   ```
   sbatch sh/train_sat_pro.sh
   ```
