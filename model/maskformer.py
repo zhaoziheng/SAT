@@ -230,32 +230,29 @@ class Maskformer(nn.Module):
             
         return image_embedding, pos, per_pixel_embedding_ls 
     
-    def infer_forward(self, queries, image_embedding, pos, per_pixel_embedding_ls):
+    def infer_forward(self, q, image_embedding, pos, per_pixel_embedding_ls):
         """
         infer batches of queries (a list) on a batch of patches
         
         Args:
-            queries (List of torch.tensor): N,d
+            q (List of torch.tensor): N,d
 
         Returns:
             logits (torch.tensor): concat seg output of all queries. B,N_all,H,W,D
         """
         _, B, _ = image_embedding.shape
-        
-        logits_ls = []
-        for q in queries:      
-            # query decoder
-            N,_ = q.shape    # N is the num of query
-            q = repeat(q, 'n dim -> n b dim', b=B) # N B Dim NOTE:By default, attention in torch is not batch_first
-            q = self.query_proj(q)
-            mask_embedding,_ = self.transformer_decoder(q, image_embedding, pos = pos) # N B Dim
-            mask_embedding = rearrange(mask_embedding, 'n b dim -> (b n) dim') # (B N) Dim
-            # Dot product
-            mask_embedding = self.mask_embed_proj(mask_embedding)   # 768 -> 128/64/48
-            mask_embedding = rearrange(mask_embedding, '(b n) dim -> b n dim', b=B, n=N)
-            per_pixel_embedding = per_pixel_embedding_ls[0] # decoder最后一层的输出
-            logits_ls.append(torch.einsum('bchwd,bnc->bnhwd', per_pixel_embedding, mask_embedding)) # bnhwd
-        logits = torch.concat(logits_ls, dim=1)  # bNhwd
+          
+        # query decoder
+        N,_ = q.shape    # N is the num of query
+        q = repeat(q, 'n dim -> n b dim', b=B) # N B Dim NOTE:By default, attention in torch is not batch_first
+        q = self.query_proj(q)
+        mask_embedding,_ = self.transformer_decoder(q, image_embedding, pos = pos) # N B Dim
+        mask_embedding = rearrange(mask_embedding, 'n b dim -> (b n) dim') # (B N) Dim
+        # Dot product
+        mask_embedding = self.mask_embed_proj(mask_embedding)   # 768 -> 128/64/48
+        mask_embedding = rearrange(mask_embedding, '(b n) dim -> b n dim', b=B, n=N)
+        per_pixel_embedding = per_pixel_embedding_ls[0] # decoder最后一层的输出
+        logits = torch.einsum('bchwd,bnc->bnhwd', per_pixel_embedding, mask_embedding) # bnhwd
         
         return logits
     
@@ -290,19 +287,19 @@ class Maskformer(nn.Module):
                 
         return logits
     
-    def forward(self, queries, image_input):
+    def forward(self, queries, image_input, train_mode=True):
         # get vision features
         image_embedding, pos, per_pixel_embedding_ls = self.vision_backbone_forward(image_input)
-        
+            
+        # Train Forward -----------------------------------------------------------------------
+        if train_mode:
+            logits = self.train_forward(queries, image_embedding, pos, per_pixel_embedding_ls)
+            
         # Infer / Evaluate Forward ------------------------------------------------------------
-        if isinstance(queries, List):
+        else:
             del image_input
             torch.cuda.empty_cache()
             logits = self.infer_forward(queries, image_embedding, pos, per_pixel_embedding_ls)
-            
-        # Train Forward -----------------------------------------------------------------------
-        else:
-            logits = self.train_forward(queries, image_embedding, pos, per_pixel_embedding_ls)
         
         return logits
 

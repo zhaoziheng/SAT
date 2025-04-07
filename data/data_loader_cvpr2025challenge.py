@@ -16,13 +16,17 @@ def respace_image(image: np.ndarray, current_spacing: np.ndarray, target_spacing
     return resampled_image
 
 def MR_CHAOS_T2(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=-1, axes=(0, 1))
     image = image[::-1,:,:]
@@ -70,13 +74,17 @@ def MR_WMH_FLAIR(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def MR_TotalSeg(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=-1, axes=(0, 1))
     image = image[:,::-1,:]
@@ -85,25 +93,33 @@ def MR_TotalSeg(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def MR_CervicalCancer(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # mask
     mask = np.where(mask>0, 1.0, 0.0)
     return image, mask, spacing
 
 def MR_AMOS(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=-1, axes=(0, 1))
     image = image[:,::-1,:]
@@ -169,13 +185,17 @@ def MR_ISLES_DWI(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def MR_CHAOS_T1(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=-1, axes=(0, 1))
     image = image[::-1,:,:]
@@ -232,6 +252,10 @@ def autoPET(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def US_Low_limb_Leg(file_name, image, mask, spacing):
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
+    # respace
     image = respace_image(image, spacing, [1, 1, 1])
     mask = respace_image(mask, spacing, [1, 1, 1])
     return image, mask, [1, 1, 1]
@@ -556,6 +580,9 @@ def CT_TotalSeg_muscles(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def Microscopy_urocell_Endolysosomes(file_name, image, mask, spacing):
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # mask
     mask = np.where(mask>0, 1.0, 0.0)
     return image, mask, spacing
@@ -571,57 +598,72 @@ def cremi(file_name, image, mask, spacing):
     return image, mask, spacing
 
 def Microscopy_urocell_Mitochondria(file_name, image, mask, spacing):
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # mask
     mask = np.where(mask>0, 1.0, 0.0)
     return image, mask, spacing
 
 def MR_BraTS_T1n(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=1, axes=(0, 1))
     mask = np.rot90(mask, k=1, axes=(0, 1))
     return image, mask, spacing
 
 def MR_BraTS_T1c(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=1, axes=(0, 1))
     mask = np.rot90(mask, k=1, axes=(0, 1))
     return image, mask, spacing
 
 def MR_BraTS_T2w(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=1, axes=(0, 1))
     mask = np.rot90(mask, k=1, axes=(0, 1))
     return image, mask, spacing
 
 def MR_BraTS_T2f(file_name, image, mask, spacing):
-    # 找到image中最小维度的位置，并将该维度移到最后
-    order = list(range(image.ndim))
-    min_dim = int(np.argmin(image.shape))
-    order.pop(min_dim)
-    order.append(min_dim)
-    image = np.transpose(image, order)
-    mask = np.transpose(mask, order)
+    # # 找到image中最小维度的位置，并将该维度移到最后
+    # order = list(range(image.ndim))
+    # min_dim = int(np.argmin(image.shape))
+    # order.pop(min_dim)
+    # order.append(min_dim)
+    # image = np.transpose(image, order)
+    # mask = np.transpose(mask, order)
+    # d h w -> h w d
+    image = rearrange(image, 'd h w -> h w d')
+    mask = rearrange(mask, 'd h w -> h w d')
     # orientation
     image = np.rot90(image, k=1, axes=(0, 1))
     mask = np.rot90(mask, k=1, axes=(0, 1))

@@ -23,15 +23,20 @@ positional_encodings==6.0.1
 ## Model Checkpoints
 We have trained the baseline model on 10 percent training data. The checkpoints can be found in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/CVPR25).
 
-## Data preparation
-For convenient, we preprocess and organize the training data in a jsonl file `data/challenge_data/train_10percent.jsonl`. For each sample, `data` refers to the npz file; `dataset` must be aligned with `data/challenge_data/CVPR25_TextSegFMData_with_class.json` to assign label and text prompts; `modality` is used to encode text prompts; `label_existance` is used for training data sampling and can be derived with `data/check_label.py`.
-
-## Inference Guidance:
-TBD
-
 ## Train Guidance:
+- **Data preparation** We preprocess and organize the training data in a jsonl file `data/challenge_data/train_10percent.jsonl`. For each sample, `data` refers to the npz file; `dataset` must be aligned with `data/challenge_data/CVPR25_TextSegFMData_with_class.json` to assign label and text prompts; `modality` is used to encode text prompts; `label_existance` is used for training data sampling and can be derived with `data/check_label.py`.
 - **Knowledge enhancement**. You can either use our pretrained text encoder in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Pretrain) or re-do the pretraining with guidance in this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master).
 - **Segmentation**. The training script is in `sh/cvpr2025.sh`.
+
+## Evaluation Guidance:
+You need to prepare the validation data in a jsonl file `data/challenge_data/validation_subset.jsonl`. For each sample, `img_path`, `gt_path`, `dataset` and `modality` are required. Then, run the evaluation script in `sh/eval_cvpr2025.sh`.
+
+## Inference Guidance:
+We provide inference code for testing data:
+```
+python inference.py
+```
+This will read a sample fron `inputs/`, generate and same the prediction mask to `outputs/`. We will provide a docker soon.
 
 ## Citation
 If you use this code for your research or project, please cite:

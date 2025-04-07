@@ -1,0 +1,17 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.env
+venv
+data
+*.log
+*.tmp
+
+inputs/*
+gts/*
+outputs/*
+docs/*
+test_validation_subset/*

@@ -1,9 +1,7 @@
-positional_encodings
-monai
-torch
-einops
-transformers
-scipy
-nibabel
-pandas
-openpyxl
+torch>=1.10.0
+numpy==1.21.5
+monai==1.1.0 
+transformers==4.21.3
+nibabel==4.0.2
+einops==0.6.1
+positional_encodings==6.0.1

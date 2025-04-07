@@ -71,6 +71,11 @@ def parse_args():
         "--datasets_jsonl",
         type=str,
     )
+    parser.add_argument(
+        "--text_prompts_json",
+        type=str,
+        help='This is needed for CVPR25 challenge, where multiple prompts (synonyms) are required.'
+    )
     
     # Sampler and Loader
     
@@ -129,7 +134,7 @@ def parse_args():
     parser.add_argument(
         "--vision_backbone",
         type=str,
-        help='UNET UNET-L UMamba or SwinUNETR'
+        help='UNET or UNET-H'
     )
     parser.add_argument(
         "--patch_size",

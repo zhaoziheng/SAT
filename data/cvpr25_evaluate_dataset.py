@@ -1,19 +1,33 @@
 import os
 import random
-import traceback
 import json
+import traceback
 import math
+import warnings
 
 from einops import rearrange, repeat, reduce
 import numpy as np
+import pandas as pd
+from pathlib import Path
 import torch
 from torch.utils.data import Dataset
 import torch.nn.functional as F
+from tqdm import tqdm
 import nibabel as nib
-import monai
 
 from train.dist import is_master
 
+from data.data_loader_cvpr2025challenge import NAME2LOADER
+
+def contains(text, key):
+    if isinstance(key, str):
+        return key in text
+    elif isinstance(key, list):
+        for k in key:
+            if k in text:
+                return True
+        return False      
+    
 def split_3d(image_tensor, crop_size=[288, 288, 96]):
     # C H W D
     interval_h, interval_w, interval_d = crop_size[0] // 2, crop_size[1] // 2, crop_size[2] // 2
@@ -52,68 +66,48 @@ def split_3d(image_tensor, crop_size=[288, 288, 96]):
                 split_idx.append([h_s, h_e, w_s, w_e, d_s, d_e])
                 split_patch.append(image_tensor[:, h_s:h_e, w_s:w_e, d_s:d_e])
                 
-    return split_patch, split_idx
-
-def contains(text, key):
-    if isinstance(key, str):
-        return key in text
-    elif isinstance(key, list):
-        for k in key:
-            if k in text:
-                return True
-        return False  
+    return split_patch, split_idx 
     
-def Normalization(torch_image, image_type):
-    # rgb_list = ['rgb', 'photograph', 'laparoscopy', 'colonoscopy', 'microscopy', 'dermoscopy', 'fundus', 'fundus image']
-    np_image = torch_image.numpy()
-    if image_type.lower() == 'ct':
-        lower_bound, upper_bound = -500, 1000
-        np_image = np.clip(np_image, lower_bound, upper_bound)
-        np_image = (np_image - np.mean(np_image)) / np.std(np_image)
-    else:
-        lower_bound, upper_bound = np.percentile(np_image, 0.5), np.percentile(np_image, 99.5)
-        np_image = np.clip(np_image, lower_bound, upper_bound)
-        np_image = (np_image - np.mean(np_image)) / np.std(np_image)
-    return torch.tensor(np_image)     
-
-def load_image(datum):
-    orientation_code = datum['orientation_code'] if 'orientation_code' in datum else "RAS"
-    
-    monai_loader = monai.transforms.Compose(
-            [
-                monai.transforms.LoadImaged(keys=['image']),
-                monai.transforms.AddChanneld(keys=['image']),
-                monai.transforms.Orientationd(axcodes=orientation_code, keys=['image']),   # zyx
-                monai.transforms.Spacingd(keys=["image"], pixdim=(1, 1, 3), mode=("bilinear")),
-                monai.transforms.CropForegroundd(keys=["image"], source_key="image"),
-                monai.transforms.ToTensord(keys=["image"]),
-            ]
-        )
-    dictionary = monai_loader({'image':datum['image']})
-    img = dictionary['image']
-    img = Normalization(img, datum['modality'].lower())
-    
-    return img, datum['label'], datum['modality'], datum['image']
-        
-class Inference_Dataset(Dataset):
-    def __init__(self, jsonl_file, max_queries=256, batch_size=2, patch_size=[288, 288, 96]):
+class Evaluate_Dataset_OnlineCrop(Dataset):
+    def __init__(self, 
+                 jsonl_file, 
+                 text_prompts_json, 
+                 max_queries=256, 
+                 batch_size=2, 
+                 patch_size=[288, 288, 96], 
+                 evaluated_samples=set()):
         """
         max_queries: num of queries in a batch. can be very large.
         batch_size: num of image patch in a batch. be careful with this if you have limited gpu memory.
         evaluated_samples: to resume from an interrupted evaluation
         """
+        
         # load data info
         self.jsonl_file = jsonl_file
         with open(self.jsonl_file, 'r') as f:
             lines = f.readlines()
-        self.lines = [json.loads(line) for line in lines]
+        lines = [json.loads(line) for line in lines]
+        
+        # load intensity 2 label json
+        with open(text_prompts_json, 'r') as f:
+            self.text_prompts_json = json.load(f)
+            
+        self.lines = []
+    
+        for sample in lines:
+            # if resume and inherit medial results another evaluation
+            sample_id = os.path.basename(sample['img_path']).replace('.npz', '')  # abcd/x.npz --> x
+            dataset_name = sample['dataset']
+            if f'{dataset_name}_{sample_id}' not in evaluated_samples:
+                self.lines.append(sample)
         
         self.max_queries = max_queries
         self.batch_size = batch_size
         self.patch_size = patch_size
         
         if is_master():          
-            print(f'** DATASET ** : load {len(lines)} samples')
+            print(f'** Online Crop DATASET ** : Skip {len(lines)-len(self.lines)} samples, {len(self.lines)} to be evaluated')
+            print(f'** Online Crop DATASET ** : Maximum {self.max_queries} queries, patch size {self.patch_size}')
         
     def __len__(self):
         return len(self.lines)
@@ -135,14 +129,18 @@ class Inference_Dataset(Dataset):
             return split_label, split_idx
     
     def _merge_modality(self, mod):
-        if contains(mod, ['t1', 't2', 'mri', 'mr', 'flair', 'dwi']):
+        if contains(mod, ['mr', 't1', 't2', 'mri', 'flair', 'dwi']):
             return 'mri'
         if contains(mod, 'ct'):
             return 'ct'
         if contains(mod, 'pet'):
             return 'pet'
+        if contains(mod, ['us', 'us3d', 'ultrasound']):
+            return 'us'
+        if contains(mod, ['microscopy']):
+            return 'microscopy'
         else:
-            return mod
+            raise ValueError(f'Unknown modality {mod}')
         
     def _pad_if_necessary(self, patch):
         # NOTE: depth must be pad to 96
@@ -155,14 +153,53 @@ class Inference_Dataset(Dataset):
             pad = (0, pad_in_d, 0, pad_in_w, 0, pad_in_h)
             patch = F.pad(patch, pad, 'constant', 0)   # chwd
         return patch
+    
+    def sc_mask_to_mc_mask(self, sc_mask, label_values_ls):
+        assert sc_mask.ndim == 3
+        h, w, d = sc_mask.shape
+        n = len(label_values_ls)
+        mc_mask = np.zeros((n, h, w, d), dtype=bool)
+        for i, label_value in enumerate(label_values_ls):
+            mc_mask[i] = np.where(sc_mask == label_value, 1, 0)
+        return mc_mask
+    
+    def load_npz_data(self, dataset_name, img_path, gt_path):
+        data = np.load(img_path)
+        sample_name = os.path.basename(img_path)[:-4]
+        img = data['imgs'].astype(np.float32)  # 0~255
+        spacing = data['spacing'].tolist()
+        
+        data = np.load(gt_path)
+        sc_mask = data['gts'].astype(np.float32)
+        
+        img, sc_mask, spacing = NAME2LOADER[dataset_name](sample_name, img, sc_mask, spacing)
+        img = img[np.newaxis, :, :, :]  # 1 h w d
+        
+        label_2_text_prompt = self.text_prompts_json[dataset_name] # '1':['xxx', 'xxx', ...]
+        label_values_ls = list(label_2_text_prompt.keys())
+        label_values_ls = [int(v) for v in label_values_ls if v!='instance_label']
+        text_prompt_ls = list(label_2_text_prompt.values()) # list of list of str
+        text_prompt_ls = [ls for ls in text_prompt_ls if isinstance(ls, list)]
+        
+        mc_mask = self.sc_mask_to_mc_mask(sc_mask, label_values_ls)  # n h w d
+        
+        return torch.from_numpy(img.copy()), torch.from_numpy(mc_mask.copy()), text_prompt_ls
         
     def __getitem__(self, idx):
         datum = self.lines[idx]
-        img, labels, modality, image_path = load_image(datum)
-        c,h,w,d = img.shape
+        sample_id = os.path.basename(datum['img_path']).replace('.npz', '')  # abcd/x.npy --> x
         
-        # image to patches
-        patches, y1y2_x1x2_z1z2_ls = split_3d(img, crop_size=[288, 288, 96])
+        dataset_name = datum['dataset']
+        img_path = datum['img_path']
+        gt_path = datum['gt_path']
+        
+        img, mask, labels = self.load_npz_data(dataset_name, img_path, gt_path)
+        assert mask.dtype == torch.bool
+        
+        modality = datum['modality']
+        modality = self._merge_modality(modality.lower()) 
+            
+        patches, y1y2_x1x2_z1z2_ls = split_3d(img, crop_size=self.patch_size)
         
         # divide patches into batches
         batch_num = len(patches) // self.batch_size if len(patches) % self.batch_size == 0 else len(patches) // self.batch_size + 1
@@ -181,26 +218,25 @@ class Inference_Dataset(Dataset):
             batched_patches.append(patch) # b, *patch_size
             batched_y1y2_x1x2_z1z2.append([y1y2_x1x2_z1z2_ls[j] for j in range(srt, end)])
 
-        # split labels into batches
-        split_labels, split_n1n2 = self._split_labels(labels) # [xxx, ...] [[n1, n2], ...]
-        modality = self._merge_modality(modality.lower())
-        for i in range(len(split_labels)):
-            split_labels[i] = [label.lower() for label in split_labels[i]]
+        # a class can have multiple equal text prompt # so first repeat mask
+        repeated_idx = [idx for idx,ls in enumerate(labels) for i in ls]
+        repeated_idx = torch.tensor(repeated_idx)
+        mask = torch.index_select(mask, dim=0, index=repeated_idx)
 
-        # the unique id of sample, used to name output
-        sample_id = image_path.split('/')[-1].replace('.nii.gz', '')    # 0.nii.gz -> 0
+        labels = [prompt for ls in labels for prompt in ls]
+        labels = [label.lower() for label in labels]
+        
+        assert mask.shape[0] == len(labels), f'{mask.shape[0]} != {len(labels)} for {gt_path}'
         
         return {
-            'dataset_name':datum['dataset'],
+            'dataset_name':dataset_name,
             'sample_id':sample_id, 
-            'image':img,
             'batched_patches':batched_patches, 
             'batched_y1y2_x1x2_z1z2':batched_y1y2_x1x2_z1z2, 
-            'split_queries':split_labels, 
-            'split_n1n2':split_n1n2,
-            'labels':labels,
-            'chwd':[c,h,w,d],
+            'labels':labels, 
             'modality':modality,
+            'gt_segmentation':mask,
+            'image_path':img_path
             }
         
 def collate_fn(data):

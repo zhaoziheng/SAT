@@ -3,7 +3,7 @@ import os
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 
-from .npz_train_dataset import Med_SAM_Dataset
+from .cvpr25_train_dataset import Med_SAM_Dataset
 from .collect_fn import collect_fn
 
 

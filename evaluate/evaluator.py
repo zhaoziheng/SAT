@@ -54,8 +54,6 @@ def evaluate(model,
         
     # collate in master process
     if is_master():
-        shutil.copy(testset.jsonl_file, csv_path.replace('.csv', '.jsonl'))
-        
         # datasets --> labels --> metrics
         datasets_labels_metrics = {}   # {'COVID19':{'covid19_infection':{'dice':[0.8, 0.9, ...], ...} ...}, ...}
     
@@ -120,10 +118,8 @@ def evaluate(model,
             sample_id = sample['sample_id'] 
             batched_patches = sample['batched_patches']
             batched_y1y2_x1x2_z1z2 = sample['batched_y1y2_x1x2_z1z2']
-            split_labels = sample['split_labels'] 
-            split_n1n2 = sample['split_n1n2']
+            labels = sample['labels'] 
             gt_segmentation = sample['gt_segmentation'].numpy()  # n h w d
-            labels = sample['labels']
             modality = sample['modality']
             image_path = sample['image_path']
 
@@ -134,20 +130,14 @@ def evaluate(model,
             data_time += (time.time()-end_time) 
             end_time = time.time()
             
-            avg_patch_batch_num += len(batched_patches)
-            avg_query_batch_num += len(split_labels)
-            
             with autocast():
                 
-                # for each batch of queries
-                queries_ls = []
-                for labels_ls, n1n2 in zip(split_labels, split_n1n2):  # convert list of texts to list of embeds
-                    queries_ls.append(text_encoder(labels_ls, modality))
+                queries = text_encoder(labels, modality)
                       
                 # for each batch of patches, query with all labels
                 for patches, y1y2_x1x2_z1z2_ls in zip(batched_patches, batched_y1y2_x1x2_z1z2):   # [b, c, h, w, d]
                     patches = patches.to(device=device)
-                    prediction_patch = model(queries=queries_ls, image_input=patches)
+                    prediction_patch = model(queries=queries, image_input=patches, train_mode=False)
                     prediction_patch = torch.sigmoid(prediction_patch)  # bnhwd
                     prediction_patch = prediction_patch.detach() # .cpu().numpy()
                     

@@ -139,3 +139,9 @@ cython_debug/
 
 # mac
 *.DS_Store
+inputs/*
+gts/*
+outputs/*
+docs/*
+test_validation_subset/*
+checkpoints/*

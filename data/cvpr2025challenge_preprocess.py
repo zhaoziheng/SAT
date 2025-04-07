@@ -12,7 +12,7 @@ from einops import repeat, rearrange
 import re
 from datetime import datetime, timedelta
 
-from cvpr2025challenge_loader import NAME2LOADER
+from data_loader_cvpr2025challenge import NAME2LOADER
 import multiprocessing
 import glob
               
@@ -54,14 +54,18 @@ def check_sample(npz_file_path):
             dataset_name = dataset
             found = True
     if not found:
-        raise ValueError(f'{sample_name} not in CVPR25_TextSegFMData_with_class.json')
+        print(f'{sample_name} not in CVPR25_TextSegFMData_with_class.json')
+        dataset_name = 'Unknown'
     
     # dataset_name = Path(npz_file_path).parent.name
     modality = Path(npz_file_path).parent.parent.name
     sample_name = os.path.basename(npz_file_path)[:-4]
     
     img_tensor = data['imgs'].astype(np.float32)  # 0~255
-    sc_mask = data['gts'].astype(np.float32)
+    if 'gts' in data:
+        sc_mask = data['gts'].astype(np.float32)
+    else:
+        sc_mask = np.zeros_like(img_tensor)
     spacing = data['spacing']
 
     # adjust plane
@@ -104,17 +108,21 @@ def check_sample(npz_file_path):
             f.write(f'** {dataset_name} **')
             f.write(f"警告: spacing 中最大的元素不在最后一个位置。当前形状: {tensor_shape} Spacing: {spacing}。\n\n")
     
-    with open('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/CVPR25_TextSegFMData_with_class.json', 'r') as f:
-        label_2_text_prompt = json.load(f)
-    label_2_text_prompt = label_2_text_prompt[dataset_name] # "1": ["White matter hyperintensities", ...], "2": [...]
-    
-    label_values_ls = list(label_2_text_prompt.keys())
-    label_values_ls = [int(v) for v in label_values_ls if v!='instance_label']
-    
-    label_name_ls = list(label_2_text_prompt.values())
-    text_ls = [ls[0] for ls in label_name_ls if isinstance(ls, list)]
-    
-    mc_mask = sc_mask_to_mc_mask(dataset_name, sample_name, sc_mask, label_values_ls)
+    if dataset_name != 'Unknown':
+        with open('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/CVPR25_TextSegFMData_with_class.json', 'r') as f:
+            label_2_text_prompt = json.load(f)
+        label_2_text_prompt = label_2_text_prompt[dataset_name] # "1": ["White matter hyperintensities", ...], "2": [...]
+        
+        label_values_ls = list(label_2_text_prompt.keys())
+        label_values_ls = [int(v) for v in label_values_ls if v!='instance_label']
+        
+        label_name_ls = list(label_2_text_prompt.values())
+        text_ls = [ls[0] for ls in label_name_ls if isinstance(ls, list)]
+        
+        mc_mask = sc_mask_to_mc_mask(dataset_name, sample_name, sc_mask, label_values_ls)
+        
+    else:
+        text_ls = []        
 
     # 检查数据
     print('* file path * : ', npz_file_path)
@@ -124,28 +132,29 @@ def check_sample(npz_file_path):
     print('* img_tensor.shape * : ', img_tensor.shape)  # [c h w d]
     print('* img_tensor.range * : ', np.min(img_tensor), np.max(img_tensor))  # [c h w d]
     print('* img_tensor.dtype * : ', img_tensor.dtype)
-    print('* mc_mask.shape * : ', mc_mask.shape)    # [c h w d]
-    print('* mc_mask.dtype * : ', mc_mask.dtype)
-    print('* sum(mc_mask) * : ', np.sum(mc_mask))
+    if dataset_name != 'Unknown':
+        print('* mc_mask.shape * : ', mc_mask.shape)    # [c h w d]
+        print('* mc_mask.dtype * : ', mc_mask.dtype)
+        print('* sum(mc_mask) * : ', np.sum(mc_mask))
     
     img_tensor = (img_tensor - img_tensor.min()) / (img_tensor.max()-img_tensor.min())
-    if mc_mask.shape[-1] > 0:
-        # 3D按nifiti存
-        results = np.zeros((img_tensor.shape[0], img_tensor.shape[1], img_tensor.shape[2])) # hwd
-        for j, label in enumerate(text_ls):
-            results += mc_mask[j, :, :, :] * (j+1)   # 0 --> 1 (skip background)
-            Path(f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/segmentations').mkdir(exist_ok=True, parents=True)
-            # 每个label单独一个nii.gz
-            segobj = nib.nifti2.Nifti1Image(mc_mask[j, :, :, :], np.eye(4))
-            nib.save(segobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/segmentations/{label}.nii.gz')
-        segobj = nib.nifti2.Nifti1Image(results, np.eye(4))
-        nib.save(segobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/seg.nii.gz')
-        
-        imgobj = nib.nifti2.Nifti1Image(img_tensor, np.eye(4))   # hwd
-        nib.save(imgobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/img.nii.gz')
+    Path(f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/segmentations').mkdir(exist_ok=True, parents=True)
+    
+    # 3D按nifiti存
+    results = np.zeros((img_tensor.shape[0], img_tensor.shape[1], img_tensor.shape[2])) # hwd
+    for j, label in enumerate(text_ls):
+        results += mc_mask[j, :, :, :] * (j+1)   # 0 --> 1 (skip background)
+        # 每个label单独一个nii.gz
+        segobj = nib.nifti2.Nifti1Image(mc_mask[j, :, :, :], np.eye(4))
+        nib.save(segobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/segmentations/{label}.nii.gz')
+    segobj = nib.nifti2.Nifti1Image(results, np.eye(4))
+    nib.save(segobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/seg.nii.gz')
+    
+    imgobj = nib.nifti2.Nifti1Image(img_tensor, np.eye(4))   # hwd
+    nib.save(imgobj, f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/{dataset_name}/{sample_name}/img.nii.gz')
 
     # 按slice存
-    for slice_idx in tqdm(range(mc_mask.shape[-1])):
+    for slice_idx in tqdm(range(img_tensor.shape[-1])):
         Path(f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/%s/%s/slice_%d'%(dataset_name, sample_name, slice_idx)).mkdir(parents=True, exist_ok=True)
         Path(f'/mnt/hwfile/medai/zhaoziheng/SAM/visualization/CVPR25_Challenge/%s/%s/image_series'%(dataset_name, sample_name)).mkdir(parents=True, exist_ok=True)
         img = repeat(img_tensor[:, :, slice_idx], 'h w -> h w c', c=1) # [H, W, C]
@@ -473,10 +482,15 @@ def summarize_dataset_distribution(jsonl_path, key, statistic_json):
 
 if __name__ == '__main__':
     
-    # Check Label
+    # # Check Label
     
-    check_label_parallel(
-        raw_jsonl='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/data/challenge_data/train_10percent.jsonl', 
-        label_json='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/CVPR25_TextSegFMData_with_class.json', 
-        out_jsonl='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/data/challenge_data/train_10percent.jsonl'
-    )
+    # check_label_parallel(
+    #     raw_jsonl='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/data/challenge_data/train_10percent.jsonl', 
+    #     label_json='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/CVPR25_TextSegFMData_with_class.json', 
+    #     out_jsonl='/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/data/challenge_data/train_10percent.jsonl'
+    # )
+    
+    check_sample('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/inputs/CT_demo1.npz')
+    check_sample('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/inputs/CT_demo2.npz')
+    check_sample('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/inputs/MR_demo.npz')
+    check_sample('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/inputs/US_demo.npz')
