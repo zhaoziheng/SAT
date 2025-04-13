@@ -21,7 +21,7 @@ positional_encodings==6.0.1
 ```
 
 ## Model Checkpoints
-We have trained the baseline model on 10 percent training data. The checkpoints can be found in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/CVPR25).
+We have trained the baseline model on 10 percent training data. The checkpoints can be found in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Nano).
 
 ## Train Guidance:
 - **Data preparation** We preprocess and organize the training data in a jsonl file `data/challenge_data/train_10percent.jsonl`. For each sample, `data` refers to the npz file; `dataset` must be aligned with `data/challenge_data/CVPR25_TextSegFMData_with_class.json` to assign label and text prompts; `modality` is used to encode text prompts; `label_existance` is used for training data sampling and can be derived with `data/check_label.py`.
