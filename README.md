@@ -36,7 +36,11 @@ We provide inference code for testing data:
 ```
 python inference.py
 ```
-This will read a sample fron `inputs/`, generate and same the prediction mask to `outputs/`. We will provide a docker soon.
+This will read a sample fron `inputs/`, generate and same the prediction mask to `outputs/`. 
+Alternatively, you can run our docker from [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Nano):
+```
+docker container run --gpus "device=0" -m 32G --name sat_cvpr25 --rm -v $PWD/inputs/:/workspace/inputs/ -v $PWD/outputs/:/workspace/outputs/ sat_cvpr25:v2 /bin/bash -c "sh predict.sh"
+```
 
 ## Citation
 If you use this code for your research or project, please cite:
