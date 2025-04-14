@@ -37,7 +37,7 @@ We provide inference code for testing data:
 python inference.py
 ```
 This will read a sample fron `inputs/`, generate and same the prediction mask to `outputs/`. 
-Alternatively, you can run our docker from [dropbox]([https://huggingface.co/zzh99/SAT/tree/main/Nano](https://www.dropbox.com/scl/fo/r616q5oaxgsq740txya88/ALjxrzUOUzB7KbPs0WDiS0s?rlkey=zmfxbd8xo9t9dlwju38nbokq8&st=wy1tpl0n&dl=0)):
+Alternatively, you can run our docker from [dropbox](https://huggingface.co/zzh99/SAT/tree/main/Nano](https://www.dropbox.com/scl/fo/r616q5oaxgsq740txya88/ALjxrzUOUzB7KbPs0WDiS0s?rlkey=zmfxbd8xo9t9dlwju38nbokq8&st=wy1tpl0n&dl=0):
 ```
 docker container run --gpus "device=0" -m 32G --name sat_cvpr25 --rm -v $PWD/inputs/:/workspace/inputs/ -v $PWD/outputs/:/workspace/outputs/ sat_cvpr25:v2 /bin/bash -c "sh predict.sh"
 ```
