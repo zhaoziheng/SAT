@@ -10,19 +10,13 @@ It's a knowledge-enhanced universal segmentation model built upon an unprecedent
 
 ![Example Figure](docs/resources/new_teaser.png)
 
-It can be powerful and more efficient than training and deploying a series of specialist models. Find more on our [website](https://zhaoziheng.github.io/SAT/) or [paper](https://arxiv.org/abs/2312.17183).
+It can be powerful and more efficient than training and deploying a series of specialist models. Find more on our [paper](https://arxiv.org/abs/2312.17183).
 
 ![Example Figure](docs/resources/radar_v3.png)
 
 ## Latest News:
-- 2024.08 📢 Based on SAT and large language models, we build a comprehensive, large-scale and region-guided 3D chest CT interpretation dataset. It contains organ-level segmentation for 196 categories, and multi-granularity reports, where each sentence is grounded to the corresponding segmentation. Check it on [huggingface](https://huggingface.co/datasets/RadGenome/RadGenome-ChestCT/tree/main).
-
-- 2024.06 📢 We have released the code to build **SAT-DS**, a collection of 72 public segmentation datasets, contains over 22K 3D images, 302K segmentation masks and 497 classes from 3 different modalities (MRI, CT, PET) and 8 human body regions, upon which we build SAT. We also offer shortcut download links for 42/72 datasets, which are preprocessed and packaged by us for your convenience, ready for immediate use upon download and extraction. Check this [repo](https://github.com/zhaoziheng/SAT-DS/tree/main) for details.
-
-- 2024.05 📢 We train a new version of SAT with larger model size (**SAT-Pro**) and more datasets (**72**), and it supports **497** classes now! 
-We also renew SAT-Nano, and release some variants of SAT-Nano, based on different visual backbones ([U-Mamba](https://github.com/bowang-lab/U-Mamba/tree/main) and [SwinUNETR](https://arxiv.org/abs/2201.01266)) and text encoders ([MedCPT](https://huggingface.co/ncbi/MedCPT-Query-Encoder) and [BERT-Base](https://huggingface.co/google-bert/bert-base-uncased)). 
-For more details about this update, refer to our new [paper](https://arxiv.org/abs/2312.17183).
-⚠️ NOTE: We made lots of changes in this update, checkpoint/code from previous version are not compatible with the newly released code/checkpoint. However, the data format is consistent with before, so no need to re-prepare your data.
+- 2025.03 📢 SAT is one of the baseline method for [CVPR 2025: FOUNDATION MODELS FOR TEXT-GUIDED 3D BIOMEDICAL IMAGE SEGMENTATION](https://www.codabench.org/competitions/5651/). Check our latest [branch](https://github.com/zhaoziheng/SAT/tree/cvpr2025challenge).
+- 2025.03 📢 We released the code adn knowledge data for knowledge pre-training in SAT. Check this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master).
 
 ## Requirements
 The implementation of U-Net relies on a customized version of [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures), to install it:
