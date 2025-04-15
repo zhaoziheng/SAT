@@ -21,12 +21,12 @@ positional_encodings==6.0.1
 ```
 
 ## Model Checkpoints
-We have trained the baseline model on 10 percent training data. The checkpoints can be found in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Nano).
+We have trained the a baseline model (SAT-Nano) on 10 percent training data. The checkpoints can be found in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Nano).
 
 ## Train Guidance:
-- **Data preparation** We preprocess and organize the training data in a jsonl file `data/challenge_data/train_10percent.jsonl`. For each sample, `data` refers to the npz file; `dataset` must be aligned with `data/challenge_data/CVPR25_TextSegFMData_with_class.json` to assign label and text prompts; `modality` is used to encode text prompts; `label_existance` is used for training data sampling and can be derived with `data/check_label.py`.
-- **Knowledge enhancement**. You can either use our pretrained text encoder in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Pretrain) or re-do the pretraining with guidance in this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master).
-- **Segmentation**. The training script is in `sh/cvpr2025.sh`.
+- **Data preparation**. We preprocess and organize the training data in a jsonl file `data/challenge_data/train_10percent.jsonl`. For each sample, `data` refers to the npz file; `dataset` must be aligned with `data/challenge_data/CVPR25_TextSegFMData_with_class.json` to assign label and text prompts; `modality` is used to encode text prompts; `label_existance` is used for training data sampling and can be derived with `data/check_label.py`.
+- **Knowledge enhancement**. You can either use our pretrained text encoder in [huggingface](https://huggingface.co/zzh99/SAT/tree/main/Pretrain) or re-do the pretraining with guidance in this [repo](https://github.com/zhaoziheng/SAT-Pretrain/tree/master). We suggest freezing the text encoder when training the segmentation model.
+- **Segmentation**. The training script is in `sh/cvpr2025.sh`. The training take around 3 days with 4xA100-80GB. You can may modify the patch size and batch size to train on GPUs with less memory.
 
 ## Evaluation Guidance:
 You need to prepare the validation data in a jsonl file `data/challenge_data/validation_subset.jsonl`. For each sample, `img_path`, `gt_path`, `dataset` and `modality` are required. Then, run the evaluation script in `sh/eval_cvpr2025.sh`.
@@ -39,7 +39,7 @@ python inference.py
 This will read a sample fron `inputs/`, generate and same the prediction mask to `outputs/`. 
 Alternatively, you can run our docker from [dropbox](https://www.dropbox.com/scl/fo/r616q5oaxgsq740txya88/ALjxrzUOUzB7KbPs0WDiS0s?rlkey=zmfxbd8xo9t9dlwju38nbokq8&st=wy1tpl0n&dl=0):
 ```
-docker container run --gpus "device=0" -m 32G --name sat_cvpr25 --rm -v $PWD/inputs/:/workspace/inputs/ -v $PWD/outputs/:/workspace/outputs/ sat_cvpr25:v2 /bin/bash -c "sh predict.sh"
+docker container run --gpus "device=0" -m 32G --name sat_cvpr25 --rm -v $PWD/inputs/:/workspace/inputs/ -v $PWD/outputs/:/workspace/outputs/ sat_cvpr25:latest /bin/bash -c "sh predict.sh"
 ```
 
 ## Citation
