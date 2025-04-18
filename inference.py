@@ -211,7 +211,7 @@ def main():
         else:
             new_state_dict[key] = value
     checkpoint['model_state_dict'] = new_state_dict
-    text_encoder.load_state_dict(checkpoint['model_state_dict'])
+    text_encoder.load_state_dict(checkpoint['model_state_dict'], strict=False)
     
     # begin inference
     model.eval()
