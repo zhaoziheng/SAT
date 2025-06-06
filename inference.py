@@ -15,7 +15,6 @@ from scipy.ndimage import zoom
 from model.maskformer import Maskformer
 from model.knowledge_encoder import Knowledge_Encoder
 
-
 def split_3d(image_tensor, crop_size=[288, 288, 96]):
     # C H W D
     interval_h, interval_w, interval_d = crop_size[0] // 2, crop_size[1] // 2, crop_size[2] // 2
@@ -66,14 +65,14 @@ def pad_if_necessary(image):
     pad_in_h = 0 if h >= croph else croph - h
     pad_in_w = 0 if w >= cropw else cropw - w
     pad_in_d = 0 if d >= cropd else cropd - d
-    
+
     # Store padding information
     padding_info = (pad_in_h, pad_in_w, pad_in_d)
-    
+
     if pad_in_h + pad_in_w + pad_in_d > 0:
         pad = (0, pad_in_d, 0, pad_in_w, 0, pad_in_h)
         image = F.pad(image, pad, 'constant', 0)   # chwd
-    
+
     return image, padding_info
 
 
@@ -82,7 +81,7 @@ def remove_padding(padded_image, padding_info):
     Removes padding
     """
     pad_in_h, pad_in_w, pad_in_d = padding_info
-    
+
     if len(padded_image.shape) == 4:
         if isinstance(padded_image, torch.Tensor):
             return padded_image[:, :padded_image.shape[1]-pad_in_h, :padded_image.shape[2]-pad_in_w, :padded_image.shape[3]-pad_in_d]
@@ -108,27 +107,27 @@ def read_npz_data():
 
     npz_file = glob("./inputs/*.npz")[0]
     data = np.load(npz_file, allow_pickle=True)
-    
+
     raw_image = data['imgs'].astype(np.float32)  # 0~255
     raw_d, raw_h, raw_w = raw_image.shape
     # d h w -> h w d
     image = rearrange(raw_image, 'd h w -> h w d') # [h, w, d]
-    
+
     # do respacing for CT
     if 'CT_' in npz_file:
         image = respace_image(image, data['spacing'], target_spacing=[1.0, 1.0, 3.0])
-        
+
     # padding
     image = repeat(image, 'h w d -> c h w d', c=3)
     image = torch.tensor(image)
     image, padding_info = pad_if_necessary(image) # [3, h, w, d]
     _, h, w, d = image.shape
-    
+
     text_prompts = data['text_prompts'].item()
     del text_prompts['instance_label']
     texts = list(text_prompts.values()) # ['xxx', ...]
     values = list(text_prompts.keys()) # [1, 2, ...]
-    
+
     npz_file = os.path.basename(npz_file)
     if npz_file.startswith('CT'):
         modality = 'ct'
@@ -142,7 +141,7 @@ def read_npz_data():
         modality = 'microscopy'
     else:
         raise ValueError(f"Unknown modality for file {npz_file}")
-    
+
     patches, y1y2_x1x2_z1z2_ls = split_3d(image, crop_size=[288, 288, 96])    # [[3, 288, 288, 96], ...]  # [[y1, y2, x1, x2, z1, z2], ...]
 
     return {
@@ -179,14 +178,14 @@ def compute_gaussian(tile_size, sigma_scale: float = 1. / 8, value_scaling_facto
 
 
 def main():
-    
+
     # set gpu
     device=torch.device("cuda", 0)
 
     # load model
     model = Maskformer('UNET', [288, 288, 96], [32, 32, 32], False)
     model = model.to(device)
-    checkpoint = torch.load('./checkpoints/nano_cvpr25_v0.pth', map_location=device)
+    checkpoint = torch.load('./checkpoints/nano_100percent.pth', map_location=device)
     # Remove 'module.' prefix from keys in checkpoint
     new_state_dict = {}
     for key, value in checkpoint['model_state_dict'].items():
@@ -202,7 +201,7 @@ def main():
     # load text encoder
     text_encoder = Knowledge_Encoder()
     text_encoder = text_encoder.to(device)
-    checkpoint = torch.load('./checkpoints/text_encoder_cvpr25_v0.pth', map_location=device)
+    checkpoint = torch.load('./checkpoints/text_encoder_100percent.pth', map_location=device)
     # Remove 'module.' prefix from keys in checkpoint
     new_state_dict = {}
     for key, value in checkpoint['model_state_dict'].items():

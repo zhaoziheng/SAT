@@ -22,7 +22,7 @@ def sc_mask_to_mc_mask(dataset_name, sample_name, sc_mask, label_values_ls):
     n = len(label_values_ls)
     mc_mask = np.zeros((n, h, w, d), dtype=np.uint8)
     for i, label_value in enumerate(label_values_ls):
-        mc_mask[i] = np.where(sc_mask == label_value, 1, 0)
+        mc_mask[i] = (sc_mask == label_value)
     unique_intensities = np.unique(sc_mask).tolist()
     for intensity in unique_intensities:
         if intensity != 0 and int(intensity) not in label_values_ls:

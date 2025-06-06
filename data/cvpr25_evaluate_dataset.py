@@ -160,7 +160,7 @@ class Evaluate_Dataset_OnlineCrop(Dataset):
         n = len(label_values_ls)
         mc_mask = np.zeros((n, h, w, d), dtype=bool)
         for i, label_value in enumerate(label_values_ls):
-            mc_mask[i] = np.where(sc_mask == label_value, 1, 0)
+            mc_mask[i] = (sc_mask == label_value)
         return mc_mask
     
     def load_npz_data(self, dataset_name, img_path, gt_path):
@@ -183,7 +183,7 @@ class Evaluate_Dataset_OnlineCrop(Dataset):
         
         mc_mask = self.sc_mask_to_mc_mask(sc_mask, label_values_ls)  # n h w d
         
-        return torch.from_numpy(img.copy()), torch.from_numpy(mc_mask.copy()), text_prompt_ls
+        return torch.from_numpy(img), torch.from_numpy(mc_mask), text_prompt_ls
         
     def __getitem__(self, idx):
         datum = self.lines[idx]

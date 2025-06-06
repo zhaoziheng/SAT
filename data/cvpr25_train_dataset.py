@@ -112,6 +112,7 @@ class Med_SAM_Dataset(Dataset):
                 self.sample_weight.append(weight)
             count_repeat += (repeat_times - 1)
             self.datasets_repeat_times[sample['dataset']] += (repeat_times - 1)
+        self.cumulative_weights = np.cumsum(self.sample_weight)
             
         """
         # determine sample weight and num
@@ -270,6 +271,8 @@ class Med_SAM_Dataset(Dataset):
             
         # crop
         crop_image = image[:, start_y:end_y, start_x:end_x, start_z:end_z]
+        if not crop_image.is_contiguous():
+            crop_image = crop_image.contiguous()
 
         return crop_image, [start_y, start_x, start_z, end_y, end_x, end_z]
     
@@ -286,6 +289,8 @@ class Med_SAM_Dataset(Dataset):
         end_z = start_z + cropd
         #
         crop_image = image[:, start_y:end_y, start_x:end_x, start_z:end_z]
+        if not crop_image.is_contiguous():
+            crop_image = crop_image.contiguous()
         
         return crop_image, [start_y, start_x, start_z, end_y, end_x, end_z]
     
@@ -370,7 +375,7 @@ class Med_SAM_Dataset(Dataset):
         n = len(label_values_ls)
         mc_mask = np.zeros((n, h, w, d), dtype=bool)
         for i, label_value in enumerate(label_values_ls):
-            mc_mask[i] = np.where(sc_mask == label_value, 1, 0)
+            mc_mask[i] = (sc_mask == label_value)
         return mc_mask
 
     def select_text_prompts(self, lists):
@@ -429,7 +434,8 @@ class Med_SAM_Dataset(Dataset):
         sc_mask = data['gts'].astype(np.float32)
         spacing = data['spacing'].tolist()
         
-        img, sc_mask, spacing = NAME2LOADER[dataset_name](sample_name, img, sc_mask, spacing)
+        # WARNING Since we dont have nii data, we dont normalize orientation/spacing in the loader any more
+        img, sc_mask, _ = NAME2LOADER[dataset_name](sample_name, img, sc_mask, spacing)
         img = img[np.newaxis, :, :, :]  # 1 h w d
         
         label_2_text_prompt = self.text_prompts_json[dataset_name] # '1':['xxx', 'xxx', ...]
@@ -440,14 +446,15 @@ class Med_SAM_Dataset(Dataset):
         
         mc_mask = self.sc_mask_to_mc_mask(sc_mask, label_values_ls)  # n h w d
         
-        return torch.from_numpy(img.copy()), torch.from_numpy(mc_mask.copy()), text_prompt_ls
+        return torch.from_numpy(img), torch.from_numpy(mc_mask), text_prompt_ls
         
     def __getitem__(self, idx):
         while True:
             try: 
-                # DEBUG
-                # sample = self.data[idx]
-                sample = random.choices(self.data, weights=self.sample_weight)[0]
+                # sample = random.choices(self.data, weights=self.sample_weight)[0]
+                rand_val = random.random() * self.cumulative_weights[-1]
+                sample_idx = np.searchsorted(self.cumulative_weights, rand_val)
+                sample = self.data[sample_idx]
                 
                 dataset_name = sample['dataset']
                 data_path = sample['data']
@@ -472,9 +479,14 @@ class Med_SAM_Dataset(Dataset):
                 
                 # crop mask
                 mask = mask[:, start_y:end_y, start_x:end_x, start_z:end_z]
+                if not mask.is_contiguous():
+                    mask = mask.contiguous()
 
                 # for all the label in this sample, check if positive in the cropped patch
-                is_pos_in_crop = [mask[i].any().item() for i in range(mask.shape[0])]
+                # is_pos_in_crop = [mask[i].any().item() for i in range(mask.shape[0])]
+                # More efficient batch operation
+                mask_any = mask.view(mask.shape[0], -1).any(dim=1)  # Shape: (n_labels,)
+                is_pos_in_crop = mask_any.tolist()  # Single GPU-CPU transfer
                 # sample from all the labels based on the cropped patch (to balance pos and neg labels)
                 neg_label_ratio_threshold = self.dataset_config[dataset_name]['neg_label_ratio_threshold']
                 all_label_index_ls = [i for i in range(len(is_pos_in_crop))]
