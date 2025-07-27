@@ -10,8 +10,6 @@ from dynamic_network_architectures.architectures.unet import PlainConvUNet, Resi
 from dynamic_network_architectures.initialization.weight_init import InitWeights_He
 
 from .transformer_decoder import TransformerDecoder,TransformerDecoderLayer
-from .SwinUNETR import SwinUNETR
-from .umamba_mid import UMambaMid
 
 class Maskformer(nn.Module):
     def __init__(self, vision_backbone='UNET', image_size=[288, 288, 96], patch_size=[32, 32, 32], deep_supervision=False):
@@ -28,92 +26,97 @@ class Maskformer(nn.Module):
         self.frame_patch_size = patch_size[-1]
         
         self.deep_supervision = deep_supervision
-        
+
         # backbone can be any multi-scale enc-dec vision backbone
         # the enc outputs multi-scale latent features
         # the dec outputs multi-scale per-pixel features
-        self.backbone = {
-            'SwinUNETR' : SwinUNETR(
-                            img_size=[288, 288, 96],    # 48, 48, 96, 192, 384, 768
-                            in_channels=3,
-                            feature_size=48,  
-                            drop_rate=0.0,
-                            attn_drop_rate=0.0,
-                            dropout_path_rate=0.0,
-                            use_checkpoint=False,
-                            ),
-            'UNET' : PlainConvUNet(input_channels=3, 
-                                   n_stages=6, 
-                                   features_per_stage=(64, 64, 128, 256, 512, 768), 
-                                   conv_op=nn.Conv3d, 
-                                   kernel_sizes=3, 
-                                   strides=(1, 2, 2, 2, 2, 2), 
-                                   n_conv_per_stage=(2, 2, 2, 2, 2, 2), 
-                                   n_conv_per_stage_decoder=(2, 2, 2, 2, 2), 
-                                   conv_bias=True, 
-                                   norm_op=nn.InstanceNorm3d,
-                                   norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
-                                   dropout_op=None,
-                                   dropout_op_kwargs=None,
-                                   nonlin=nn.LeakyReLU, 
-                                   nonlin_kwargs=None,
-                                   deep_supervision=deep_supervision,
-                                   nonlin_first=False
-                                   ),
-            'UNET-L' : PlainConvUNet(input_channels=3, 
-                                   n_stages=6, 
-                                   features_per_stage=(128, 128, 256, 512, 1024, 1536), 
-                                   conv_op=nn.Conv3d, 
-                                   kernel_sizes=3, 
-                                   strides=(1, 2, 2, 2, 2, 2), 
-                                   n_conv_per_stage=(3, 3, 3, 3, 3, 3), 
-                                   n_conv_per_stage_decoder=(3, 3, 3, 3, 3), 
-                                   conv_bias=True, 
-                                   norm_op=nn.InstanceNorm3d,
-                                   norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
-                                   dropout_op=None,
-                                   dropout_op_kwargs=None,
-                                   nonlin=nn.LeakyReLU, 
-                                   nonlin_kwargs=None,
-                                   deep_supervision=deep_supervision,
-                                   nonlin_first=False
-                                   ),
-            'UNET-H' : PlainConvUNet(input_channels=3, 
-                                   n_stages=6, 
-                                   features_per_stage=(256, 256, 512, 1024, 1536, 2048), 
-                                   conv_op=nn.Conv3d, 
-                                   kernel_sizes=3, 
-                                   strides=(1, 2, 2, 2, 2, 2), 
-                                   n_conv_per_stage=(3, 3, 3, 3, 3, 3), 
-                                   n_conv_per_stage_decoder=(3, 3, 3, 3, 3), 
-                                   conv_bias=True, 
-                                   norm_op=nn.InstanceNorm3d,
-                                   norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
-                                   dropout_op=None,
-                                   dropout_op_kwargs=None,
-                                   nonlin=nn.LeakyReLU, 
-                                   nonlin_kwargs=None,
-                                   deep_supervision=deep_supervision,
-                                   nonlin_first=False
-                                   ),
-            'UMamba' : UMambaMid(
-                        input_channels=3,
-                        n_stages=6,
-                        features_per_stage=(64, 64, 128, 256, 512, 768),
-                        conv_op=nn.Conv3d,
-                        kernel_sizes=3,
-                        strides=(1, 2, 2, 2, 2, 2),
-                        n_conv_per_stage=(1, 1, 1, 1, 1, 1),
-                        n_conv_per_stage_decoder=(1, 1, 1, 1, 1),
-                        conv_bias=True,
-                        norm_op=nn.InstanceNorm3d,
-                        norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
-                        dropout_op=None,
-                        dropout_op_kwargs=None,
-                        nonlin=nn.LeakyReLU, 
-                        nonlin_kwargs=None,
-                ),
-        }[vision_backbone]
+        if vision_backbone=='SwinUNETR':
+            from .SwinUNETR import SwinUNETR
+            self.backbone = SwinUNETR(
+                img_size=[288, 288, 96],    # 48, 48, 96, 192, 384, 768
+                in_channels=3,
+                feature_size=48,  
+                drop_rate=0.0,
+                attn_drop_rate=0.0,
+                dropout_path_rate=0.0,
+                use_checkpoint=False
+            )
+        if vision_backbone=='UMamba':
+            from .umamba_mid import UMambaMid
+            self.backbone = UMambaMid(
+                input_channels=3,
+                n_stages=6,
+                features_per_stage=(64, 64, 128, 256, 512, 768),
+                conv_op=nn.Conv3d,
+                kernel_sizes=3,
+                strides=(1, 2, 2, 2, 2, 2),
+                n_conv_per_stage=(1, 1, 1, 1, 1, 1),
+                n_conv_per_stage_decoder=(1, 1, 1, 1, 1),
+                conv_bias=True,
+                norm_op=nn.InstanceNorm3d,
+                norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
+                dropout_op=None,
+                dropout_op_kwargs=None,
+                nonlin=nn.LeakyReLU, 
+                nonlin_kwargs=None
+            )
+        else:
+            self.backbone = {
+                'UNET' : PlainConvUNet(input_channels=3, 
+                                       n_stages=6, 
+                                       features_per_stage=(64, 64, 128, 256, 512, 768), 
+                                       conv_op=nn.Conv3d, 
+                                       kernel_sizes=3, 
+                                       strides=(1, 2, 2, 2, 2, 2), 
+                                       n_conv_per_stage=(2, 2, 2, 2, 2, 2), 
+                                       n_conv_per_stage_decoder=(2, 2, 2, 2, 2), 
+                                       conv_bias=True, 
+                                       norm_op=nn.InstanceNorm3d,
+                                       norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
+                                       dropout_op=None,
+                                       dropout_op_kwargs=None,
+                                       nonlin=nn.LeakyReLU, 
+                                       nonlin_kwargs=None,
+                                       deep_supervision=deep_supervision,
+                                       nonlin_first=False
+                                       ),
+                'UNET-L' : PlainConvUNet(input_channels=3, 
+                                       n_stages=6, 
+                                       features_per_stage=(128, 128, 256, 512, 1024, 1536), 
+                                       conv_op=nn.Conv3d, 
+                                       kernel_sizes=3, 
+                                       strides=(1, 2, 2, 2, 2, 2), 
+                                       n_conv_per_stage=(3, 3, 3, 3, 3, 3), 
+                                       n_conv_per_stage_decoder=(3, 3, 3, 3, 3), 
+                                       conv_bias=True, 
+                                       norm_op=nn.InstanceNorm3d,
+                                       norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
+                                       dropout_op=None,
+                                       dropout_op_kwargs=None,
+                                       nonlin=nn.LeakyReLU, 
+                                       nonlin_kwargs=None,
+                                       deep_supervision=deep_supervision,
+                                       nonlin_first=False
+                                       ),
+                'UNET-H' : PlainConvUNet(input_channels=3, 
+                                       n_stages=6, 
+                                       features_per_stage=(256, 256, 512, 1024, 1536, 2048), 
+                                       conv_op=nn.Conv3d, 
+                                       kernel_sizes=3, 
+                                       strides=(1, 2, 2, 2, 2, 2), 
+                                       n_conv_per_stage=(3, 3, 3, 3, 3, 3), 
+                                       n_conv_per_stage_decoder=(3, 3, 3, 3, 3), 
+                                       conv_bias=True, 
+                                       norm_op=nn.InstanceNorm3d,
+                                       norm_op_kwargs={'eps': 1e-5, 'affine': True}, 
+                                       dropout_op=None,
+                                       dropout_op_kwargs=None,
+                                       nonlin=nn.LeakyReLU, 
+                                       nonlin_kwargs=None,
+                                       deep_supervision=deep_supervision,
+                                       nonlin_first=False
+                                       )
+            }[vision_backbone]
         
         self.backbone.apply(InitWeights_He(1e-2))
         
