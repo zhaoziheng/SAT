@@ -67,10 +67,24 @@ def main(args):
                     evaluated_samples.add(f'{line[0]}_{line[2]}')
                     
     # dataset and loader
+    # WARNING: Need to preprocess nii files to npy files, check https://github.com/zhaoziheng/SAT-DS/tree/main
     if args.online_crop:
         testset = Evaluate_Dataset_OnlineCrop(args.datasets_jsonl, args.max_queries, args.batchsize_3d, args.crop_size, evaluated_samples)
     else:
         testset = Evaluate_Dataset(args.datasets_jsonl, args.max_queries, args.batchsize_3d, args.crop_size, evaluated_samples)
+        
+    # # WARNING: Use this if you want to load the nii file directly
+    # from data.nii_loader import Loader_Wrapper
+    # from data.nii_evaluate_dataset import Evaluate_Dataset_OnlineCrop
+    # testset = Evaluate_Dataset_OnlineCrop(
+    #     jsonl_file=args.datasets_jsonl, 
+    #     loader=Loader_Wrapper(),
+    #     patch_size=args.crop_size,    # h w d
+    #     max_queries=args.max_queries,
+    #     batch_size=args.batchsize_3d,
+    #     evaluated_samples=evaluated_samples
+    # )
+        
     sampler = DistributedSampler(testset)
     testloader = DataLoader(testset, sampler=sampler, batch_size=1, pin_memory=args.pin_memory, num_workers=args.num_workers, collate_fn=collate_fn, shuffle=False)
     sampler.set_epoch(0)
