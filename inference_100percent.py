@@ -55,7 +55,6 @@ def split_3d(image_tensor, crop_size=[288, 288, 96]):
                 
     return split_patch, split_idx 
 
-
 def pad_if_necessary(image):
     """
     Pad image to 288 288 96
@@ -75,7 +74,6 @@ def pad_if_necessary(image):
 
     return image, padding_info
 
-
 def remove_padding(padded_image, padding_info):
     """
     Removes padding
@@ -93,7 +91,6 @@ def remove_padding(padded_image, padding_info):
         else:  # numpy array
             return padded_image[:padded_image.shape[0]-pad_in_h, :padded_image.shape[1]-pad_in_w, :padded_image.shape[2]-pad_in_d]
 
-
 def respace_image(image: np.ndarray, current_spacing: np.ndarray, target_spacing: np.ndarray) -> np.ndarray:
     # Calculate zoom factors (ratio between current and target spacing)
     zoom_factors = np.array(current_spacing) / np.array(target_spacing)
@@ -102,10 +99,8 @@ def respace_image(image: np.ndarray, current_spacing: np.ndarray, target_spacing
     resampled_image = scipy.ndimage.zoom(image, zoom_factors, order=1)
     return resampled_image
 
+def read_npz_data(npz_file):
 
-def read_npz_data():
-
-    npz_file = glob("/workspace/inputs/*.npz")[0]
     data = np.load(npz_file, allow_pickle=True)
 
     raw_image = data['imgs'].astype(np.float32)  # 0~255
@@ -157,7 +152,6 @@ def read_npz_data():
         'raw_image': raw_image
     }
 
-
 def compute_gaussian(tile_size, sigma_scale: float = 1. / 8, value_scaling_factor: float = 10, dtype=np.float16):
     tmp = np.zeros(tile_size)
     center_coords = [i // 2 for i in tile_size]
@@ -176,7 +170,6 @@ def compute_gaussian(tile_size, sigma_scale: float = 1. / 8, value_scaling_facto
 
     return gaussian_importance_map
 
-
 def main():
 
     # set gpu
@@ -185,7 +178,7 @@ def main():
     # load model
     model = Maskformer('UNET', [288, 288, 96], [32, 32, 32], False)
     model = model.to(device)
-    checkpoint = torch.load('./checkpoints/nano_100percent.pth', map_location=device)
+    checkpoint = torch.load('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/checkpoints/nano_100percent.pth', map_location=device)
     # Remove 'module.' prefix from keys in checkpoint
     new_state_dict = {}
     for key, value in checkpoint['model_state_dict'].items():
@@ -201,7 +194,7 @@ def main():
     # load text encoder
     text_encoder = Knowledge_Encoder()
     text_encoder = text_encoder.to(device)
-    checkpoint = torch.load('./checkpoints/text_encoder_100percent.pth', map_location=device)
+    checkpoint = torch.load('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SAT/checkpoints/text_encoder_100percent.pth', map_location=device)
     # Remove 'module.' prefix from keys in checkpoint
     new_state_dict = {}
     for key, value in checkpoint['model_state_dict'].items():
@@ -220,157 +213,79 @@ def main():
         # gaussian kernel to accumulate predcition
         gaussian = torch.tensor(compute_gaussian((288, 288, 96))).to(device)    # hwd
         
-        # load and process inference data
-        data_dict = read_npz_data()
+        for npz_file in glob('/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/Version2/3D_val_npz/*.npz'):
         
-        # Extract individual values from dictionary
-        file_name = data_dict['npz_file_name']
-        modality = data_dict['modality']
-        
-        text_prompts = data_dict['texts']
-        label_values = data_dict['values']
-        
-        original_shape = data_dict['original_shape']
-        current_shape = data_dict['current_shape']
-        batched_patches = data_dict['patches']
-        batched_y1y2_x1x2_z1z2 = data_dict['y1y2_x1x2_z1z2_ls']
-        padding_info = data_dict['padding_info']
-        raw_image = data_dict['raw_image']
-        
-        modality_code_dict = {
-                'ct':0,
-                'mri':1,
-                'us':2,
-                'pet':3,
-                'microscopy':4
-            }
-        modality_code = torch.tensor([modality_code_dict[modality]]).to(device)
-        
-        h, w, d = current_shape
-        n = len(text_prompts)
-        prediction = torch.zeros((n, h, w, d))
-        accumulation = torch.zeros((n, h, w, d))
-        with autocast():
+            # load and process inference data
+            data_dict = read_npz_data(npz_file)
             
-            # encode text prompts
-            queries = text_encoder(text_prompts, modality_code)   # convert text prompts to embeds
-            torch.cuda.empty_cache()
+            # Extract individual values from dictionary
+            file_name = data_dict['npz_file_name']
+            modality = data_dict['modality']
             
-            # for each batch of patches, query with all labels
-            for patches, y1y2_x1x2_z1z2_ls in zip(batched_patches, batched_y1y2_x1x2_z1z2):   # [c, h, w, d]
-                patches = patches.unsqueeze(0).to(device=device)    # [b, c, h, w, d]
-                prediction_patch = model(queries=queries, image_input=patches, train_mode=False)
-                prediction_patch = torch.sigmoid(prediction_patch)  # bnhwd
-                prediction_patch = prediction_patch.detach() # .cpu().numpy()
+            text_prompts = data_dict['texts']
+            label_values = data_dict['values']
             
-                # fill in 
-                y1, y2, x1, x2, z1, z2 = y1y2_x1x2_z1z2_ls
-                # gaussian accumulation
-                tmp = prediction_patch[0, :, :y2-y1, :x2-x1, :z2-z1] * gaussian[:y2-y1, :x2-x1, :z2-z1] # on gpu
-                prediction[:, y1:y2, x1:x2, z1:z2] += tmp.cpu()
-                accumulation[:, y1:y2, x1:x2, z1:z2] += gaussian[:y2-y1, :x2-x1, :z2-z1].cpu()
+            original_shape = data_dict['original_shape']
+            current_shape = data_dict['current_shape']
+            batched_patches = data_dict['patches']
+            batched_y1y2_x1x2_z1z2 = data_dict['y1y2_x1x2_z1z2_ls']
+            padding_info = data_dict['padding_info']
+            raw_image = data_dict['raw_image']
             
-            # avg            
-            prediction = prediction / accumulation
-            prediction = torch.where(prediction>0.5, 1.0, 0.0)
-            prediction = prediction.numpy()
+            modality_code_dict = {
+                    'ct':0,
+                    'mri':1,
+                    'us':2,
+                    'pet':3,
+                    'microscopy':4
+                }
+            modality_code = torch.tensor([modality_code_dict[modality]]).to(device)
+            
+            h, w, d = current_shape
+            n = len(text_prompts)
+            prediction = torch.zeros((n, h, w, d))
+            accumulation = torch.zeros((n, h, w, d))
+            with autocast():
+                
+                # encode text prompts
+                queries = text_encoder(text_prompts, modality_code)   # convert text prompts to embeds
+                torch.cuda.empty_cache()
+                
+                # for each batch of patches, query with all labels
+                for patches, y1y2_x1x2_z1z2_ls in zip(batched_patches, batched_y1y2_x1x2_z1z2):   # [c, h, w, d]
+                    patches = patches.unsqueeze(0).to(device=device)    # [b, c, h, w, d]
+                    prediction_patch = model(queries=queries, image_input=patches, train_mode=False)
+                    prediction_patch = torch.sigmoid(prediction_patch)  # bnhwd
+                    prediction_patch = prediction_patch.detach() # .cpu().numpy()
+                
+                    # fill in 
+                    y1, y2, x1, x2, z1, z2 = y1y2_x1x2_z1z2_ls
+                    # gaussian accumulation
+                    tmp = prediction_patch[0, :, :y2-y1, :x2-x1, :z2-z1] * gaussian[:y2-y1, :x2-x1, :z2-z1] # on gpu
+                    prediction[:, y1:y2, x1:x2, z1:z2] += tmp.cpu()
+                    accumulation[:, y1:y2, x1:x2, z1:z2] += gaussian[:y2-y1, :x2-x1, :z2-z1].cpu()
+                
+                # avg            
+                prediction = prediction / accumulation
+                prediction = torch.where(prediction>0.5, 1.0, 0.0)
+                prediction = prediction.numpy()
 
-    # save prediction
-    results = np.zeros((h, w, d)) # hwd
-    for j, (text, value) in enumerate(zip(text_prompts, label_values)):
-        results += prediction[j, :, :, :] * int(value)
-    results = remove_padding(results, padding_info)
-    # Check if the current shape is different from original shape (respaced) and resize if needed
-    current_h, current_w, current_d = results.shape
-    original_h, original_w, original_d = original_shape
-    if current_h != original_h or current_w != original_w or current_d != original_d:
-        # Use scipy's resize function to restore to original shape
-        zoom_factors = (original_h/current_h, original_w/current_w, original_d/current_d)
-        # Use nearest neighbor interpolation (order=0) to preserve label values
-        results = zoom(results, zoom_factors, order=0)
-        print(f"Resized segmentation from {(current_h, current_w, current_d)} to {(original_h, original_w, original_d)}")
-    results = rearrange(results, 'h w d -> d h w')
-    np.savez_compressed(os.path.join("./outputs", file_name), segs=results)
-    
-    # #
-    # # Save as NIfTI (nii.gz) file with labeled regions
-    # #
-    
-    # # Create NIfTI file from results
-    # import nibabel as nib
-    # nifti_img = nib.Nifti1Image(results, np.eye(4))
-
-    # # Save the NIfTI file
-    # nii_output_path = os.path.join("./outputs", os.path.splitext(file_name)[0] + "_pred.nii.gz")
-    # nib.save(nifti_img, nii_output_path)
-
-    # # Create a text file with label descriptions
-    # label_description_path = os.path.join("./outputs", os.path.splitext(file_name)[0] + "_labels.txt")
-    # with open(label_description_path, "w") as f:
-    #     f.write("Label descriptions:\n")
-    #     for value, text in zip(label_values, text_prompts):
-    #         f.write(f"Label {value}: {text}\n")
-
-    # print(f"Saved NIfTI file to {nii_output_path}")
-    # print(f"Saved label descriptions to {label_description_path}")
-    
-    # #
-    # # Save raw image as NIfTI (nii.gz) file
-    # #
-    
-    # # Create NIfTI file from raw image
-    # raw_nifti_img = nib.Nifti1Image(raw_image, np.eye(4))
-    
-    # # Save the raw image NIfTI file
-    # raw_nii_output_path = os.path.join("./outputs", os.path.splitext(file_name)[0] + "_img.nii.gz")
-    # nib.save(raw_nifti_img, raw_nii_output_path)
-    
-    # print(f"Saved raw image NIfTI file to {raw_nii_output_path}")
-    
-    # #
-    # # Save raw image slices as PNG files
-    # #
-    
-    # # Create directory for PNG slices
-    # png_output_dir = os.path.join("./outputs", os.path.splitext(file_name)[0] + "_slices")
-    # os.makedirs(png_output_dir, exist_ok=True)
-    
-    # # Save each slice as PNG
-    # import matplotlib.pyplot as plt
-    # for slice_idx in range(raw_image.shape[0]):
-    #     plt.figure(figsize=(8, 8))
-    #     plt.imshow(raw_image[slice_idx], cmap='gray')
-    #     plt.axis('off')
-    #     plt.tight_layout()
-    #     plt.savefig(os.path.join(png_output_dir, f"slice_{slice_idx:03d}.png"), 
-    #                 bbox_inches='tight', pad_inches=0, dpi=150)
-    #     plt.close()
-    
-    # print(f"Saved {raw_image.shape[0]} PNG slices to {png_output_dir}")
-    
-    # #
-    # # Test Evaluation DSC
-    # #
-    
-    # # Load ground truth and segmentation masks
-    # gt_path = os.path.join("./gts", file_name)
-    # seg_path = os.path.join("./outputs", file_name)
-    # gt_npz = np.load(gt_path, allow_pickle=True)['gts']
-    # seg_npz = np.load(seg_path, allow_pickle=True)['segs']
-
-    # # Calculate DSC                 
-    # from evaluate.SurfaceDice import compute_dice_coefficient
-    # def compute_multi_class_dsc(gt, seg):
-    #     dsc = []
-    #     for i in np.unique(gt)[1:]: # skip bg
-    #         gt_i = gt == i
-    #         seg_i = seg == i
-    #         dsc.append(compute_dice_coefficient(gt_i, seg_i))
-    #         print("dsc", dsc[-1])
-    #     return np.mean(dsc)
-    # dsc = compute_multi_class_dsc(gt_npz, seg_npz)
-    # print('all dice:', dsc)
-
+            # save prediction
+            results = np.zeros((h, w, d)) # hwd
+            for j, (text, value) in enumerate(zip(text_prompts, label_values)):
+                results += prediction[j, :, :, :] * int(value)
+            results = remove_padding(results, padding_info)
+            # Check if the current shape is different from original shape (respaced) and resize if needed
+            current_h, current_w, current_d = results.shape
+            original_h, original_w, original_d = original_shape
+            if current_h != original_h or current_w != original_w or current_d != original_d:
+                # Use scipy's resize function to restore to original shape
+                zoom_factors = (original_h/current_h, original_w/current_w, original_d/current_d)
+                # Use nearest neighbor interpolation (order=0) to preserve label values
+                results = zoom(results, zoom_factors, order=0)
+                print(f"Resized segmentation from {(current_h, current_w, current_d)} to {(original_h, original_w, original_d)}")
+            results = rearrange(results, 'h w d -> d h w')
+            np.savez_compressed(os.path.join("/mnt/petrelfs/zhaoziheng/Knowledge-Enhanced-Medical-Segmentation/SegFM3D/Version2/3D_val_100percent_prediction", file_name), segs=results)
 
 if __name__ == '__main__':
     main()
