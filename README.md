@@ -4,7 +4,7 @@
 [![Dropbox](https://img.shields.io/badge/Dropbox-Model%20-blue?logo=dropbox)](https://www.dropbox.com/scl/fo/922fefjab8fp9j5czrqxo/AGU0eCBC-SLrO8BnsIzrQIg?rlkey=gddj22sfcpu5rr9vlzj3a2jmq&st=uzim2ow3&dl=0)
 [![SATDS](https://img.shields.io/badge/GitHub-Data-green?logo=github)](https://github.com/zhaoziheng/SAT-DS)
 
-This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts" 🚀 
+This is the official repository for "Large-Vocabulary Segmentation for Medical Images with Text Prompts" 🚀 
 
 It's a knowledge-enhanced universal segmentation model built upon an unprecedented data collection (72 public 3D medical segmentation datasets), which can segment 497 classes from 3 different modalities (MR, CT, PET) and 8 human body regions, prompted by text (anatomical terminology).
 
@@ -112,10 +112,13 @@ We provide the detailed configurations of all the specialist models (nnU-Nets, U
 ## Citation
 If you use this code for your research or project, please cite:
 ```
-@arxiv{zhao2023model,
-  title={One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompt}, 
-  author={Ziheng Zhao and Yao Zhang and Chaoyi Wu and Xiaoman Zhang and Ya Zhang and Yanfeng Wang and Weidi Xie},
-  year={2023},
-  journal={arXiv preprint arXiv:2312.17183},
+@misc{zhao2025largevocabularysegmentationmedicalimages,
+      title={Large-Vocabulary Segmentation for Medical Images with Text Prompts}, 
+      author={Ziheng Zhao and Yao Zhang and Chaoyi Wu and Xiaoman Zhang and Xiao Zhou and Ya Zhang and Yanfeng Wang and Weidi Xie},
+      year={2025},
+      eprint={2312.17183},
+      archivePrefix={arXiv},
+      primaryClass={eess.IV},
+      url={https://arxiv.org/abs/2312.17183}, 
 }
 ```
