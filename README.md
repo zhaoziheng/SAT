@@ -1,6 +1,6 @@
 # SAT
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2312.17183)
-[![HF](https://img.shields.io/badge/Hugging%20Face-Model-yellow)](https://github.com/zhaoziheng/SAT)
+[![HF](https://img.shields.io/badge/Hugging%20Face-Model-yellow)](https://huggingface.co/zzh99/SAT)
 [![Dropbox](https://img.shields.io/badge/Dropbox-Model%20-blue?logo=dropbox)](https://www.dropbox.com/scl/fo/922fefjab8fp9j5czrqxo/AGU0eCBC-SLrO8BnsIzrQIg?rlkey=gddj22sfcpu5rr9vlzj3a2jmq&st=uzim2ow3&dl=0)
 [![SATDS](https://img.shields.io/badge/GitHub-Data-green?logo=github)](https://github.com/zhaoziheng/SAT-DS)
 
