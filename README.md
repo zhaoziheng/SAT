@@ -1,10 +1,10 @@
 # SAT
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2312.17183)
-[![HF](https://img.shields.io/badge/Hugging%20Face-Model-yellow)](https://github.com/zhaoziheng/SAT)
+[![HF](https://img.shields.io/badge/Hugging%20Face-Model-yellow)](https://huggingface.co/zzh99/SAT)
 [![Dropbox](https://img.shields.io/badge/Dropbox-Model%20-blue?logo=dropbox)](https://www.dropbox.com/scl/fo/922fefjab8fp9j5czrqxo/AGU0eCBC-SLrO8BnsIzrQIg?rlkey=gddj22sfcpu5rr9vlzj3a2jmq&st=uzim2ow3&dl=0)
 [![SATDS](https://img.shields.io/badge/GitHub-Data-green?logo=github)](https://github.com/zhaoziheng/SAT-DS)
 
-This is the official repository for "One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts" 🚀 
+This is the official repository for "Large-Vocabulary Segmentation for Medical Images with Text Prompts" 🚀 
 
 It's a knowledge-enhanced universal segmentation model built upon an unprecedented data collection (72 public 3D medical segmentation datasets), which can segment 497 classes from 3 different modalities (MR, CT, PET) and 8 human body regions, prompted by text (anatomical terminology).
 
@@ -112,10 +112,14 @@ We provide the detailed configurations of all the specialist models (nnU-Nets, U
 ## Citation
 If you use this code for your research or project, please cite:
 ```
-@arxiv{zhao2023model,
-  title={One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompt}, 
-  author={Ziheng Zhao and Yao Zhang and Chaoyi Wu and Xiaoman Zhang and Ya Zhang and Yanfeng Wang and Weidi Xie},
-  year={2023},
-  journal={arXiv preprint arXiv:2312.17183},
+@article{zhao2025large,
+  title={Large-vocabulary segmentation for medical images with text prompts},
+  author={Zhao, Ziheng and Zhang, Yao and Wu, Chaoyi and Zhang, Xiaoman and Zhou, Xiao and Zhang, Ya and Wang, Yanfeng and Xie, Weidi},
+  journal={NPJ Digital Medicine},
+  volume={8},
+  number={1},
+  pages={566},
+  year={2025},
+  publisher={Nature Publishing Group UK London}
 }
 ```

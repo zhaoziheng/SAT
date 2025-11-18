@@ -163,27 +163,40 @@
   }
 </style>
 
-	<title>One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts</title>
+	<title>Large-Vocabulary Segmentation for Medical Images with Text Prompts</title>
 </head>
 
 <body>
 	<br>
 	<center>
-	<span style="font-size:32px">One Model to Rule them All: Towards Universal Segmentation for Medical Images with Text Prompts</span><br><br><br>
+	<span style="font-size:32px">Large-Vocabulary Segmentation for Medical Images with Text Prompts</span><br><br>
 	</center>
 
-        <table align="center" width="640px">
+  <table align="center" width="400px">
+    <tbody>
+      <tr>
+        <td align="center" width="400px">
+          <center>
+            <strong><span style="font-size:26px">npj Digital Medicine</span></strong>
+          </center>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br>
+  
+        <table align="center" width="720px">
             <tbody><tr>
 
                     <td align="center" width="160px">
               <center>
-                <span style="font-size:16px">Ziheng Zhao</a><sup>1,2</sup></span>
+                <span style="font-size:16px"><a href="https://zhaoziheng.github.io/">Ziheng Zhao</a><sup>1,2</sup></span>
                 </center>
                 </td>
 
                     <td align="center" width="160px">
               <center>
-                <span style="font-size:16px">Yao Zhang</a><sup>1,2</sup></span>
+                <span style="font-size:16px"><a href="https://github.com/YaoZhang93">Yao Zhang</a><sup>2</sup></span>
                 </center>
                 </td>
 
@@ -196,6 +209,12 @@
                     <td align="center" width="160px">
               <center>
                 <span style="font-size:16px"><a href="https://xiaoman-zhang.github.io/">Xiaoman Zhang</a><sup>1,2</sup></span>
+                </center>
+                </td>
+
+                    <td align="center" width="160px">
+              <center>
+                <span style="font-size:16px">Xiao Zhou</a><sup>2</sup></span>
                 </center>
                 </td>
 
@@ -238,7 +257,7 @@
                 </td>
                     <td align="center" width="300px">
               <center>
-                    <span style="font-size:16px"><sup>1</sup>CMIC, Shanghai Jiao Tong University</span>
+                    <span style="font-size:16px"><sup>1</sup>Shanghai Jiao Tong University</span>
                 </center>
                 </td>
                     <td align="center" width="300px">
@@ -292,13 +311,20 @@
       <center><h2> Abstract </h2> </center>
       <p style="text-align:justify; text-justify:inter-ideograph;">
       <left>
-	      In this study, we aim to build up a model that can Segment Anything in radiology scans, driven by Text prompts, termed as SAT. Our main contributions are three folds: 
-        (i) for dataset construction, we construct the first multi-modal knowledge tree on human anatomy, including 6502 anatomical terminologies; Then we build up the largest and most comprehensive segmentation dataset for training, by collecting over 22K 3D medical image scans from 72 segmentation datasets, across 497 classes, with careful standardization on both image scans and label space; 
-        (ii) for architecture design, we propose to inject medical knowledge into a text encoder via contrastive learning, and then formulate a universal segmentation model, that can be prompted by feeding in medical terminologies in text form; 
-        (iii) As a result, we have trained SAT-Nano (110M parameters) and SAT-Pro (447M parameters), demonstrating comparable performance to 72 specialist nnU-Nets trained on each dataset/subsets. 
-        We validate SAT as a foundational segmentation model, with better generalization ability on external (unseen) datasets, and can be further improved on specific tasks after fine-tuning adaptation. 
-        Comparing with interactive segmentation model, for example, MedSAM, segmentation model prompted by text enables superior performance, scalability and robustness. 
-        As a use case, we demonstrate that SAT can act as a powerful out-of-the-box agent for large language models, enabling visual grounding in clinical procedures such as report generation.
+	      This paper aims to build a model that can Segment Anything in 3D medical images, driven
+        by medical terminologies as Text prompts, termed as SAT. Our main contributions are three-fold: (i)
+        We construct the first multimodal knowledge tree on human anatomy, including 6502 anatomical
+        terminologies; Then, we build the largest and most comprehensive segmentation dataset for training,
+        collecting over 22K 3D scans from 72 datasets, across 497 classes, with careful standardization
+        on both image and label space; (ii) We propose to inject medical knowledge into a text encoder via
+        contrastive learning and formulate a large-vocabulary segmentation model that can be prompted by
+        medical terminologies in text form. (iii) We train SAT-Nano (110M parameters) and SAT-Pro (447M
+        parameters). SAT-Pro achieves comparable performance to 72 nnU-Nets—the strongest specialist models
+        trained on each dataset (over 2.2B parameters combined)—over 497 categories. Compared with the
+        interactive approach MedSAM, SAT-Pro consistently outperforms across all 7 human body regions with
+        +7.1% average Dice Similarity Coefficient (DSC) improvement, while showing enhanced scalability and
+        robustness. On 2 external (cross-center) datasets, SAT-Pro achieves higher performance than all baselines
+        (+3.7% average DSC), demonstrating superior generalization ability.
         </left></p>
         <table align="center" width="800px">
               <tbody><tr>
@@ -373,137 +399,39 @@
 
       <center><h2>Results</h2></center>
 
-      <p><b>A Universal Model is Worth 72 Specialist Models</b></p> 
+      <p><b>A Generalist Model is Worth 72 Specialist Models</b></p> 
       In the internal validation, we evaluate SAT-Nano and SAT-Pro on all the 72 segmentation datasets in the collection. 
       As there is no appropriate benchmark for evaluating the universal segmentation model, 
       we randomly split each dataset in the collection into 80% for training and 20% for testing.
-      We take nnU-Net as a strong baseline for comparison, and train specialist nnU-Net model on each of the datasets, 
-      resulting in 72 nnU-Net models with optimized configuration on each dataset.
-      Here, we present the comparison with 72 nnU-Net models on each region, and model size. 
+      We firstly take nnU-Net, U-Mamba and SwinUNETR as representative specialist methods and strong baselines for comparison. We train specialist models on each of the datasets, 
+      resulting in 72 nnU-Net/U-Mamba/SwinUNETR models with optimized configuration on each dataset.
       In general, SAT-Pro shows comparable performance to the combination of 72 nnU-Net models, with only <b>1/5</b> model size.
       <table align="center" width="800px">
             <tbody><tr>
               <td align="center" width="600px">
                 <center>
-                  <img style="width:800px" src='./resources/radar_v3.pdf'></img>
+                  <img style="width:800px" src='./resources/Figure3.pdf'></img>
                 </center>
               </td>
             </tr></tbody>
       </table>
 
-      <p><b>SAT as a Strong Pre-trained Segmentation Model</b></p> 
-      Built on the unprecedented data collection, SAT can be used as a strong pre-trained model, and adapted towards specific downstream dataset, 
-      by further finetuning on the training split of certain dataset. 
-      As shown in the following table, we report the results of SAT-Pro-FT. 
-      When comparing to the original SAT-Pro, it shows significant improvement on all the regions and lesion classes,
-      and ultimately outperforms nnU-Nets.
+      <p><b>Text-prompted Segmentation Can Be User-Friendly</b></p> 
+      Driven by text prompts, SAT outlines a novel paradigm for segmentation foundation model, as opposed to previous interactive approaches that rely on spatial prompts. 
+      This could save tremendous manual efforts from prompting in clinical applications. On performance, SAT-Pro consistently outperforms the
+      state-of-the-art interactive model MedSAM across 7 human body regions, while being robust to targets
+      with ambiguous spatial relationships.
       <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:800px" src='./resources/region_table.png'></img>
-            </center>
-          </td>
-        </tr></tbody>
+            <tbody><tr>
+              <td align="center" width="600px">
+                <center>
+                  <img style="width:800px" src='./resources/Figure4.pdf'></img>
+                </center>
+              </td>
+            </tr></tbody>
       </table>
 
-      <p><b>SAT with Superior Generalization Ability</b></p> 
-      In the external validation, we use a subset collection of SAT-DS as training data (composed of 49 datasets), and take 10 held-out datasets for zero-shot evaluation. 
-      Although SAT-Pro is generally superior over SAT-Nano in internal evaluation, to save computational cost, we only train and evaluate SAT-Nano in this setting.
-      While to systematically evaluate nnU-Nets, for each held-out dataset, we traverse all the 49 datasets and corresponding models, and evaluate them on all the classes shared between the two datasets.
-      As shown in the following table, SAT-Nano outperforms nnU-Nets on 9 out of 10 datasets on DSC score (+2.21), and excels consistently on all datasets on NSD score (+6.73).
-      This suggest the superior generalization ability of SAT.
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:800px" src='./resources/zeroshot_table.png'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-
-      <p><b>Text As Prompt for Segmentation</b></p>
-      We compare our proposed SAT with MedSAM, an out-of-the-box interactive segmentation model finetuned from SAM. 
-      We carefully choose 32 out of 72 datasets for internal evaluation, which are also involved in training MedSAM.
-      We report three results for MedSAM: 
-      simulate box prompts based on the ground truth segmentation, with minimum rectangle covering the ground truth (denoted as Tight), i.e., the most accurate prompts; 
-      randomly shift each box corner up to 8% of the image resolution (denoted as Loose), i.e., allow errors to some extent; 
-      directly use the tight box prompts as prediction (denoted as Oracle Box), i.e., the input baseline of MedSAM.
-      The results are demonstrated in the following table. 
-      SAT-Pro consistently outperforms MedSAM on all regions in terms of both DSC (+7.08) and NSD (+10.8). While SAT-Pro underperforms MedSAM on lesions, due to the small size of lesions, and the box prompts to MedSAM have
-      lready provided very strong prior, as indicated by the results of inputting oracle box, which even shows better performance than MedSAM output on DSC score.
-      </p>
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:700px" src='./resources/medsam_table.png'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-      We further present qualitative results from two representative examples to illustrate the performance
-      gap between SAT-Pro with MedSAM.
-      The upper row shows the segmentation of myocardium, where the box prompt is ambiguous and MedSAM wrongly segment the left heart ventricle surrounded by the myocardium.
-      The lower row shows the segmentation of colon cancer, where the MedSAM prediction is no better than the oracle box.
-      </p>
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:700px" src='./resources/MedSAM_Visualization.pdf'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-
-      <p><b>Domain knowledge can boost segmentation performance</b> </p> 
-      We configure and train three SAT-Nano variants, with different text encoders: 
-      The text encoder pre-trained on our multimodal medical knowledge graph; 
-      MedCPT, the state-of-the-art text encoder for various medical language tasks; 
-      And BERT-Base, a prevalent text encoder in natural language processing but not specifically finetuned on medical corpus.
-      With respect to the severe long-tail distribution of SAT-DS, 
-      we demonstrate the knowledge injection we proposed can significantly improve the segmentation performance, 
-      especially on the tail classes.
-      For detailed results, please refer to Section 2.2 in our paper.
-      </p>
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:700px" src='./resources/long_tail.pdf'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-
-      <p><b>Zero-shot transfer to real clinic data</b></p> 
-      On several in-house clinical images with manual reports,
-      we utilize GPT-4 to directly extract the anatomical targets of interests from reports 
-      and prompt SAT-Pro to segment them on the image. 
-      This demonstrate the potentail of SAT as a powerful agent for LLMs, 
-      and its powerful generalization capability to real clinic data, despite the diversity of images and segmentation targets.
-      </p>
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:700px" src='./resources/zero-shot-six1.pdf'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-      <table align="center" width="800px">
-        <tbody><tr>
-          <td align="center" width="600px">
-            <center>
-              <img style="width:700px" src='./resources/zero-shot-six2.pdf'></img>
-            </center>
-          </td>
-        </tr></tbody>
-      </table>
-
+      For more experiment results and interesting findings, please refer to our <a href="https://arxiv.org/abs/2312.17183">paper</a>.
       
       <center> <h2> Acknowledgements </h2> </center>
       <p> 
