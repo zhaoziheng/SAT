@@ -82,7 +82,7 @@ def load_image(datum):
     monai_loader = monai.transforms.Compose(
             [
                 monai.transforms.LoadImaged(keys=['image']),
-                monai.transforms.AddChanneld(keys=['image']),
+                monai.transforms.EnsureChannelFirstd(keys=['image']),
                 monai.transforms.Orientationd(axcodes=orientation_code, keys=['image']),   # zyx
                 monai.transforms.Spacingd(keys=["image"], pixdim=(1, 1, 3), mode=("bilinear")),
                 monai.transforms.CropForegroundd(keys=["image"], source_key="image"),
